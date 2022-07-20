@@ -62,6 +62,10 @@ contract ItemContract{
     function getProducerById(uint256 _itemId) public view returns(address _proudcer){
         return items[_itemId].producer;
     }
+
+    function getItemOwned() public view returns(uint256[] memory){
+        return itemOwned[msg.sender];
+    }
     
     function viewItemById(uint _itemId) public view returns(
         string memory name,
@@ -100,16 +104,6 @@ contract ItemContract{
         emit SetOwnerToProducerEvent(_owner, flag);
         return true;
     }
-/*
-    function isShipping(uint _itemId) public view returns(bool){
-        return items[_itemId].shipping;
-    }
-
-    function endOfShipping(uint _itemId) public {
-        items[_itemId].shipping = false;
-    }
-*/
-
     
 
     event SetOwnerToProducerEvent(address _owner, bool flag);
