@@ -2,8 +2,6 @@
 
 pragma solidity >=0.5.16;
 
-import "./Supply.sol";
-
 contract MethodContract{
     function uint256ArrayPush(uint256[] memory _arr, uint _uint) public pure returns(bool){
         uint256 len = _arr.length;
@@ -11,10 +9,12 @@ contract MethodContract{
         _arr[len] = _uint;
         return true;
     }
-     function addrArrayPush(address[] memory _arr, address _owner) public pure returns(bool){
+     function addrArrayPush(address[] memory _arr, address _owner) public returns(bool){
         uint256 len = _arr.length;
+        emit addrArrayPushEvent(_arr.length);
         assembly { mstore(_arr, add(mload(_arr), 1)) }
         _arr[len] = _owner;
+        emit addrArrayPushEvent(_arr.length);
         return true;
     }
 
@@ -47,4 +47,6 @@ contract MethodContract{
 
         return true;
     }
+
+    event  addrArrayPushEvent(uint256 len);
 }

@@ -44,11 +44,14 @@ contract AuctionContract{
         _;
     }
 
-    modifier isOwned(address[] memory _itemOwner, address _owner){
+    function isOwned(address[] memory _itemOwner) public view returns(bool){
         for(uint256 i=0;i<_itemOwner.length;i++){
-            require(_itemOwner[i]==_owner);
+            if(_itemOwner[i]==msg.sender){
+                return true;
+            }
+             
         }
-        _;
+        return false;
     }
 
 
@@ -116,11 +119,11 @@ contract AuctionContract{
 
     // 경매 생성
     function createAuction(string memory _auctionTitle, uint256 _startPrice, uint256 _itemId, 
-        uint _blockDeadline, uint256 _sales, string memory _shippingAddr) public isOwned(IC.getOwnerList(_itemId),msg.sender){
+        uint _blockDeadline, uint256 _sales, string memory _shippingAddr) public {
         
         uint256 auctionId = auctions.length;
         uint256 stock = SC.getSupplyAddrToStock(_itemId, msg.sender);
-        require(_sales > stock, "Out Of Stock.\n");
+        require(_sales <= stock, "Out Of Stock.\n");
 
         Auction memory newAuction;
         newAuction.name = _auctionTitle;

@@ -14,19 +14,17 @@ library Shared{
         string origin;  // 원산지
         uint256 itemId;    // Item Array Index
         address[] itemOwner;
-    }
-    
+    }    
+
 }
 
 contract ItemContract{
 
-    SupplyContract SC;
-    MethodContract MC;
+    SupplyContract SC = new SupplyContract();
+    MethodContract MC = new MethodContract();
 
     Shared.Item[] public items;
 
-    
-    
 
     mapping(address => bool     ) public producerCheck;
     mapping(address => uint256[]) public itemOwned;
@@ -34,7 +32,7 @@ contract ItemContract{
 
 
     function createItem(string memory _itemTitle, uint256 _weight, uint256 _stock, 
-        string memory _origin) public isProducer(msg.sender) returns(bool){
+        string memory _origin) public returns(bool){
         
         uint256 _itemId = items.length;
         
@@ -50,13 +48,22 @@ contract ItemContract{
         SC.setSupplyAddrToStock(_itemId, payable(msg.sender), _stock);
         MC.addrArrayPush(newItem.itemOwner, msg.sender);
         items.push(newItem);
-        itemOwned[msg.sender].push(_itemId);
+        MC.uint256ArrayPush(itemOwned[msg.sender], _itemId);
+ 
         emit CreateItemEvent(_itemTitle, _weight, _stock, _origin);
         return true;
+    }
+    
+    function getProducerCheck(address _user) public view returns(bool){
+        return producerCheck[_user];
     }
 
     function getOwnerList(uint256 _itemId) public view returns(address[] memory _itemOwner){
         return items[_itemId].itemOwner;
+    }
+
+    function getOwnerListLength(uint256 _itemId) public view returns(uint256){
+        return items[_itemId].itemOwner.length;
     }
 
     function getProducerById(uint256 _itemId) public view returns(address _proudcer){
@@ -94,18 +101,18 @@ contract ItemContract{
     }
 
 
-    modifier isProducer(address _owner){
-        require(producerCheck[_owner] == true);
-        _;
-    }
+    function isProducer() public view returns(bool){
+        return producerCheck[msg.sender];
+        }
+        
 
-    function setOwnerToProducer(address _owner, bool flag) public returns(bool){
-        producerCheck[_owner] = flag;
-        emit SetOwnerToProducerEvent(_owner, flag);
-        return true;
+    function setOwnerToProducer(bool flag) public returns(bool){
+        producerCheck[msg.sender] = flag;
+        emit SetOwnerToProducerEvent(flag);
+        return producerCheck[msg.sender];
     }
     
 
-    event SetOwnerToProducerEvent(address _owner, bool flag);
+    event SetOwnerToProducerEvent(bool flag);
     event CreateItemEvent(string _itemTitle, uint256 _weight, uint256 _stock, string _origin);
 }
