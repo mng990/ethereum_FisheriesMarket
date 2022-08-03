@@ -2,77 +2,80 @@
 
 pragma solidity >=0.5.16;
 
-import "./method.sol";
-import "./Supply.sol";
-
-library Shared{
-    struct Item{
-        string name;    // 상품명
-        uint256 weight; // 무게
-        uint256 stock;      // 재고
-        address payable producer;   // 생산자
-        string origin;  // 원산지
-        uint256 itemId;    // Item Array Index
-        address[] itemOwner;
-    }    
-
-}
+import "./Auction.sol";
 
 contract ItemContract{
 
-    SupplyContract SC = new SupplyContract();
-    MethodContract MC = new MethodContract();
+    struct Item{
+        string name;
+        uint256 weight; 
+        uint256 stock;     
+        address payable producer;   
+        string origin;  
+        uint256 itemId;    
+        string imgCID;
+        address payable owner;
+        bool active;
+    } 
 
-    Shared.Item[] public items;
+    Item[] public items;
 
 
     mapping(address => bool     ) public producerCheck;
-    mapping(address => uint256[]) public itemOwned;
+    mapping(uint256 => uint256[]) public auctionTracking;
     
 
 
-    function createItem(string memory _itemTitle, uint256 _weight, uint256 _stock, 
-        string memory _origin) public returns(bool){
+    function createItem(string memory _itemTitle, uint256 _weight, uint256 _stock,  string memory _origin) public returns(uint256){
         
         uint256 _itemId = items.length;
+
         
-        Shared.Item memory newItem;
+        Item memory newItem;
         
         newItem.name = _itemTitle;
         newItem.weight = _weight;
         newItem.stock = _stock;
-        newItem.producer = payable(msg.sender);
+        newItem.producer = payable(msg.sender); 
         newItem.origin = _origin;
         newItem.itemId = _itemId;
-        
-        SC.setSupplyAddrToStock(_itemId, payable(msg.sender), _stock);
-        MC.addrArrayPush(newItem.itemOwner, msg.sender);
+        newItem.owner = payable(msg.sender);
+
         items.push(newItem);
-        MC.uint256ArrayPush(itemOwned[msg.sender], _itemId);
  
         emit CreateItemEvent(_itemTitle, _weight, _stock, _origin);
-        return true;
+        return _itemId;
+    }
+
+    function getStockById(uint256 _itemId) public view returns(uint256){
+        return items[_itemId].stock;
+    }
+
+    function getAllOfItems() public view returns(Item[] memory){
+        return items;
     }
     
     function getProducerCheck(address _user) public view returns(bool){
-        return producerCheck[_user];
+        bool rtn = producerCheck[_user];
+        return rtn;
     }
 
-    function getOwnerList(uint256 _itemId) public view returns(address[] memory _itemOwner){
-        return items[_itemId].itemOwner;
-    }
-
-    function getOwnerListLength(uint256 _itemId) public view returns(uint256){
-        return items[_itemId].itemOwner.length;
-    }
+    function getOriginById(uint256 _itemId) public view returns(string memory){
+        return items[_itemId].origin;
+    }    
 
     function getProducerById(uint256 _itemId) public view returns(address _proudcer){
         return items[_itemId].producer;
     }
 
-    function getItemOwned() public view returns(uint256[] memory){
-        return itemOwned[msg.sender];
+    function getItemNameById(uint256 _itemId) public view returns(string memory){
+        return items[_itemId].name;
     }
+
+    function getBidOrNotById(uint256 _itemId) public view returns(bool){
+        return msg.sender != items[_itemId].producer;
+    }
+
     
     function viewItemById(uint _itemId) public view returns(
         string memory name,
@@ -80,23 +83,20 @@ contract ItemContract{
         uint256 stock,
         address payable producer,
         string memory origin,
-        uint256 itemId,
-        address[] memory itemOwner
-
+        uint256 itemId
     ){
-        Shared.Item memory item = items[_itemId];
+        Item memory item = items[_itemId];
         return(
             item.name,
             item.weight,
             item.stock,
             item.producer,
             item.origin,
-            item.itemId,
-            item.itemOwner
-        );
+            item.itemId
+            );
     }
 
-    function getItemById(uint _itemId) public view returns(Shared.Item memory){
+    function getItemById(uint256 _itemId) public view returns(Item memory){
         return items[_itemId];
     }
 
@@ -112,6 +112,7 @@ contract ItemContract{
         return producerCheck[msg.sender];
     }
     
+
 
     event SetOwnerToProducerEvent(bool flag);
     event CreateItemEvent(string _itemTitle, uint256 _weight, uint256 _stock, string _origin);

@@ -2,123 +2,89 @@
 
 pragma solidity >=0.5.16;
 
-import "./Item.sol";
-import "./method.sol";
-
-
-
 contract SupplyContract{
 
-    ItemContract IC;
-    MethodContract MC = new MethodContract();
 
-    struct Supply{
-        mapping(address => address) addrTracing;   // 경로 추적 
-        mapping(address => string ) addrToShipping;  // 유저별 주소
-        mapping(address => uint256 ) addrToStock;    // 유저별 소유량
-        mapping(address => uint256 ) addrToOwnerIdx; // 유저별 index
-        mapping(address => bool    ) isShipping;
-    }
+    mapping(address => address) public addrTracing;    
+    mapping(address => string ) public addrToShippingAddr;
+    mapping(address => uint256) public addrToPathIdx;
+    mapping(uint256 => address) public pathIdxToAddr;
+
+
+    string[] public pathMax;
+
+    bool active = false;
+
 
     mapping(address => bool     ) public producerCheck;
-    mapping(address => uint256[]) public itemOwned;
-    mapping(uint256 => Supply   ) supplyDataByItem;
 
-    function deleveryCompleted(uint256 _itemId, address payable _bidder) public returns(bool){
-        supplyDataByItem[_itemId].isShipping[_bidder] = false;
-        emit DontWorryBeHappy(_itemId, _bidder);
-        return true;
+    function getActive() public view returns(bool){
+        return active;
     }
 
-    function setSupplyAddrToStock(uint256 _itemId, address payable _sender, uint256 _sales) public{
-        Supply storage supplyData = supplyDataByItem[_itemId];
-        supplyData.addrToStock[_sender] += _sales;
+    function setActive(bool _active) public returns(bool){
+        active = _active;
+        return active;
     }
 
-    function setSupplyAddrToShippingAddr(uint256 _itemId, address payable _sender, string memory _shipping) public{
-        Supply storage supplyData = supplyDataByItem[_itemId];
-        supplyData.addrToShipping[_sender] = _shipping;
+    function setAddrTracing(address _from, address _to) public {
+        addrTracing[_to] = _from;
     }
 
-    function getSupplyAddrToStock(uint256 _itemId, address _sender) public view returns(uint256){
-        Supply storage supplyData = supplyDataByItem[_itemId];
-        return supplyData.addrToStock[_sender];
+    function getShippingAddrByIdx(uint256 _idx) public view returns(string memory){
+        return pathMax[_idx];
+    } 
+
+    function getPathLenByAddr(address _user) public view returns(uint256){
+        return addrToPathIdx[_user];
     }
 
-    function productTracing(uint256 _itemId, address _root) public view returns(string[] memory){
-        address producer = IC.getProducerById(_itemId);
-        string[] memory path = new string[] (1); 
-        Supply storage supplyData = supplyDataByItem[_itemId];
+    function setAddrToShippingAddr(address _from, address _to, string memory _fromStr, string memory _toStr) public {
+        pathIdxToAddr[pathMax.length] = _from;
+        addrToPathIdx[_from] = pathMax.length;
+        pathMax.push(_fromStr);
+        pathIdxToAddr[pathMax.length] = _to;
+        addrToPathIdx[_to] = pathMax.length;
+        pathMax.push(_toStr);
+    }
 
-        path[0] = supplyData.addrToShipping[_root];
+    function getPathMax() public view returns(string[] memory){
+        return pathMax;
+    }
 
-        require(bytes(path[0]).length != 0, "There is no record of the transaction.\n");
+    function productTracing(address _user, address _producer) public view returns(string[] memory){
+        
+        if(_user == _producer) revert();
+        uint256 trlen = 0;
+        uint256 fullLen = pathMax.length;
+
+        string[] memory path = new string[](fullLen);
+
+        path[trlen++] = addrToShippingAddr[_user];
 
         while(true){
-            if(_root == producer) break;
-
-            _root = supplyData.addrTracing[_root];
-            MC.strArrayPush(path, supplyData.addrToShipping[_root]);
+            _user = addrTracing[_user];
+            if(_user == _producer) break;
+            
+            path[trlen++] = addrToShippingAddr[_user];
          }
+        
+        if(trlen < fullLen){
+            fullLen -= trlen;
+
+            assembly { mstore(path, sub(mload(path), fullLen)) }
+        }
 
          return path;
     }
 
-    function productTracingFromYou(uint256 _itemId) public view returns(string[] memory){
-         return productTracing(_itemId, msg.sender);
-    }
-
-    function fullLengthTracing(uint256 _itemId) public view returns(string[] memory){
-
-            address[] memory addrList = IC.getOwnerList(_itemId);
-
-            return productTracing(_itemId, addrList[addrList.length-1]);
-
-    }
-
-    function handOver(Shared.Item memory _myItem,  address _owner, address _bidder, 
-        uint256 _sales, string memory _shippingAddress) public returns(bool){
-                
-        uint256 _itemId = _myItem.itemId;
-
-        Supply storage supplyData = supplyDataByItem[_itemId];
-        
-
-        uint256 ownerStock = supplyData.addrToStock[_owner];
-        uint256 bidderStock = supplyData.addrToStock[_bidder];
-
-        if(bidderStock == 0){
-            MC.addrArrayPush(_myItem.itemOwner,_bidder);
-            MC.uint256ArrayPush(itemOwned[_bidder], _itemId);
-            supplyData.addrTracing[_bidder] = _owner;
-            supplyData.addrToShipping[_bidder] = _shippingAddress;
-        }
-
-
-        bidderStock += _sales;
-        ownerStock  -= _sales;
-
-        supplyData.addrToStock[_bidder] = bidderStock;
-        supplyData.addrToStock[_owner ] = ownerStock;
-
-
-        if(ownerStock == 0){
-            MC.addrArrayErase(_myItem.itemOwner, _owner);
-
-            delete supplyData.addrToStock[_owner];
-            delete supplyData.addrToOwnerIdx[_owner];
-        }
-
-        supplyData.isShipping[_bidder] = true;
-
-
-        emit HandOverEvent(_owner, _bidder, _sales);
-
-        return true;
+    function productTracingFromYou(address _producer) public view returns(string[] memory){
+        string[] memory path = productTracing(msg.sender, _producer);
+        return path;
     }
 
     event productTracingCompleted(uint _itemId, address _root);
     event DontWorryBeHappy(uint256 _itemId, address _bidder);
-    event HandOverEvent(address _owner, address _bidder, uint256 _sales);
 
 }
+
