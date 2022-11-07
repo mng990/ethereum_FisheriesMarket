@@ -1,0 +1,197 @@
+<!-- /*
+* Template Name: Property
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Untree.co">
+        <link rel="shortcut icon" href="../favicon.png">
+    
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+    
+        <meta name="description" content="" />
+        <meta name="keywords" content="bootstrap, bootstrap5" />
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    
+        <link rel="stylesheet" href="../fonts/icomoon/style.css">
+        <link rel="stylesheet" href="../fonts/flaticon/font/flaticon.css">
+    
+        <link rel="stylesheet" href="../css/tiny-slider.css">
+        <link rel="stylesheet" href="../css/aos.css">
+        <link rel="stylesheet" href="../css/style.css">
+    
+        <title>수산물 경로 확인</title>
+    </head>
+    <style>
+       
+        .file-list {
+            height: 200px;
+            overflow: auto;
+            border: 1px solid #989898;
+            padding: 10px;
+            border-radius: 0.25rem;
+            color: #212529;
+        }
+        .file-list .filebox p {
+            font-size: 14px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .file-list .filebox .delete i{
+            color: #ff5353;
+            margin-left: 5px;
+        }
+    </style>
+<style>
+   
+    .file-list {
+        height: 200px;
+        overflow: auto;
+        border: 1px solid #989898;
+        padding: 10px;
+        border-radius: 0.25rem;
+        color: #212529;
+    }
+    .file-list .filebox p {
+        font-size: 14px;
+        margin-top: 10px;
+        display: inline-block;
+    }
+    .file-list .filebox .delete i{
+        color: #ff5353;
+        margin-left: 5px;
+    }
+</style>
+<body>
+    <h1>경로 추적</h1>
+	<div id="show_table"></div>
+	
+<!-- 
+	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="../auction_abi.js"></script>
+    <script src="../Item_abi.js"></script>
+    <script src="../Supply_abi.js"></script>
+
+	<script src="../js/index.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/tiny-slider.js"></script>
+    <script src="../js/aos.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/counter.js"></script>
+    <script src="../js/custom.js"></script> -->
+
+    <script>
+        function filter(input){
+            var output = new Array();
+            for(var i=0; i<input.length; i++){
+                if(input[i] != '') output.push(input[i]);
+            }
+            return output;
+        }
+
+		window.addEventListener("load", async function() {
+        var map = new Array();
+        var pathMap = new Array();
+        var aucMap = new Array();
+        var query = document.location.search;
+        var param = new URLSearchParams(query);
+        data = param.get('route'); //item_id
+        var track = filter(data.split("^"));
+        var path = filter(track[0].split("|"));
+        var aucTrack = filter(track[1].split("|"));
+        
+        console.log("path: ",aucTrack);
+
+        for(var i=0; i<path.length; i++){
+            console.log("idx: ",i);
+            var row = '';
+            var pathArr = filter(path[i].split(','));
+            console.log("pathArr: ", pathArr);
+            for(var j=0; j<pathArr.length; j++){
+                row += pathArr[j];
+                if(j < pathArr.length-1){
+                    row += '->'
+                }
+            }
+            console.log("row: ",row);
+            if(row.length > 0){
+                pathMap.push(row);  
+            }
+        }
+
+        for(var i=0; i<aucTrack.length; i++){
+            console.log("idx: ",i);
+            var row = '';
+            var aucArr = filter(aucTrack[i].split(','));
+            console.log("aucArr: ", aucArr);
+            for(var j=0; j<aucArr.length; j++){
+                row += aucArr[j];
+                if(j < aucArr.length-1){
+                    row += '->'
+                }
+            }
+            console.log("row: ",row);
+            if(row.length > 0){
+                aucMap.push(row);  
+            }
+        }
+        console.log(pathMap);
+        console.log(aucMap);
+
+        //var cnt = data.length/2 + 1 
+		//경매목록에서 넘겨받은 id 저장
+
+        let table = document.createElement('table');
+        let thead = document.createElement('thead');
+        let tbody = document.createElement('tbody');
+            
+        table.appendChild(thead);
+        table.appendChild(tbody);
+            
+        document.getElementById("show_table").appendChild(table);
+
+        
+            
+            let row_1 = document.createElement('tr');
+            let heading_1 = document.createElement('th');
+            heading_1.innerHTML = "구입 경로";
+            let heading_2 = document.createElement('th');
+            heading_2.innerHTML = "배송 경로";
+
+            row_1.appendChild(heading_1);
+            row_1.appendChild(heading_2);
+            thead.appendChild(row_1);
+
+            for(var j=0; j<pathMap.length; j++){
+                let row_2 = document.createElement('tr');
+                let row_2_data_1 = document.createElement('td');
+                row_2_data_1.innerHTML = aucMap[j];
+
+                let row_2_data_2 = document.createElement('td');
+                row_2_data_2.innerHTML = pathMap[j];
+                
+                row_2.appendChild(row_2_data_1);
+                row_2.appendChild(row_2_data_2);
+                tbody.appendChild(row_2);
+            }
+            let hr = document.createElement('hr');
+            document.getElementById("show_table").appendChild(hr);
+        
+		
+	
+     })
+
+	
+
+    </script>
+  </body>
+  </html>

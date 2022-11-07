@@ -1,0 +1,306 @@
+<!-- /*
+* Template Name: Property
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Untree.co">
+	<link rel="shortcut icon" href="favicon.png">
+
+	<meta name="description" content="" />
+	<meta name="keywords" content="bootstrap, bootstrap5" />
+	
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+	<link rel="stylesheet" href="fonts/icomoon/style.css">
+	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+	<link rel="stylesheet" href="css/tiny-slider.css">
+	<link rel="stylesheet" href="css/aos.css">
+	<link rel="stylesheet" href="css/style.css">
+
+	<title>수산물 경매 NFT</title>
+</head>
+<body>
+
+	<div class="site-mobile-menu site-navbar-target">
+		<div class="site-mobile-menu-header">
+			<div class="site-mobile-menu-close">
+				<span class="icofont-close js-menu-toggle"></span>
+			</div>
+		</div>
+		<div class="site-mobile-menu-body"></div>
+	</div>
+
+	<nav class="site-nav">
+		<div class="container">
+			<div class="menu-bg-wrap">
+				<div class="site-navigation">
+					<a href="index.html" class="logo m-0 float-start">수산물 경매 NFT</a>
+
+					<ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">
+						<li class="active"><a href="index.html">홈</a></li>
+						<li class="has-children">
+							<a href="html/properties.html">경매 물품</a>
+						</li>
+						<li><a href="html/my_page.html">My Page</a></li>
+
+						<!--<li><a href="about.html">About</a></li>
+						<li><a href="contact.html">Contact Us</a></li> -->
+					</ul>
+
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="hero">
+		<div class="hero-slide">
+			<!-- <div class="img overlay" style="background-image: url('images/hero_bg_3.jpg')"></div> -->
+			<div class="img overlay" style="background-image: url('images/hero_bg_2.jpg')"></div>
+			<div class="img overlay" style="background-image: url('images/hero_bg_1.jpg')"></div>
+		</div>
+
+		<div class="container">
+			<div class="row justify-content-center align-items-center">
+				<div class="col-lg-9 text-center" >
+					<h1 class="heading" data-aos="fade-up">상품을 등록하세요!</h1>
+					<div class = 'narrow-w form-search d-flex align-items-stretch mb-3 justify-content-center' id = "div_btn" data-aos='fade-up'>
+						<button class="btn btn-primary" id='check_signUp_btn' onclick="register_signUp()">회원등록</button>
+						<button class="btn btn-primary" id='check_producer_btn' onclick="register_producer()">생산자 인증</button>
+
+					</div>
+						<div>
+						</div>
+										
+					</div>
+			</div>
+		</div>
+	</div>
+
+
+	
+
+	
+ <!-- 중간 필요없는 부분 주석 _ 끝-->
+	<div class="site-footer">
+		<div class="container">
+			<div class="row">
+			</div> 
+
+			<!-- <div class="row mt-5"> -->
+				<div class="col-12 text-center">
+					<!-- 
+              **==========
+              NOTE: 
+              Please don't remove this copyright link unless you buy the license here https://untree.co/license/  
+              **==========
+            -->
+
+            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by 우유와고기조</a>
+            </p>
+
+          </div>
+        </div>
+      </div> <!-- /.container -->
+    </div> <!-- /.site-footer -->
+
+
+    <!-- Preloader -->
+    <div id="overlayer"></div>
+    <div class="loader">
+    	<div class="spinner-border" role="status">
+    		<span class="visually-hidden">Loading...</span>
+    	</div>
+    </div>
+
+	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+    <script src="./auction_abi.js"></script>
+	<script src="./Item_abi.js"></script>
+	<script src="./Supply_abi.js"></script>
+	
+
+    <script src="js/index.js"></script>
+    <script src="js/tiny-slider.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/counter.js"></script>
+    <script src="js/custom.js"></script>
+	<script>
+		function makeSubmit(){
+			document.getElementById('div_btn').innerHTML = "<form action='html/properties_register.html' class='narrow-w form-search d-flex align-items-stretch mb-3 justify-content-center' data-aos='fade-up' data-aos-delay='200'>"+
+
+			 "<button type='submit'id='item_upload_btn' class='btn btn-primary'>등록하기</button></form>";
+			 console.log(document.getElementById('div_btn').innerHTML);
+
+		}
+
+		async function check_manager(){
+         var userAccount = await web3.eth.getAccounts(); 
+         console.log(userAccount);
+
+            console.log(userAccount[0]);
+         let check_manager = await Item_sol.methods.getIsManager().call();
+
+         if(check_manager==false){
+            alert("접근 권한이 없습니다.");
+			location.href="./manage_index.html";
+         }
+         else{
+            location.href="html/manage_delivery.html";
+         }
+      }
+		
+		
+		//인증버튼 눌렀을때
+		async function register_signUp(){
+			try{
+				LoadingWithMask();
+				var userAccount = await web3.eth.getAccounts();
+
+				console.log(userAccount[0]);
+
+				//생산자 등록 체크 
+
+				
+				signUp = await Item_sol.methods.setApprovalForUser(userAccount[0], true).send({from:userAccount[0]});  
+				
+				alert("접속한 계정이 회원으로 등록되었습니다.");
+
+				let check_producer = await Item_sol.methods.getIsProducer(userAccount[0]).call();
+
+				document.getElementById('check_signUp_btn').style.display='none';
+
+				if(check_producer == false){
+					document.getElementById('check_producer_btn').style.display='block';
+				}
+				else{
+					makeSubmit();
+					//document.getElementById('item_upload_btn').disabled=false;
+					//document.getElementById('item_upload_btn').style.display='block';
+				}
+			
+			}
+			catch(err){
+				alert("가입에 실패하였습니다.");
+				console.log(err);
+				location.href = "./index.html";
+			}
+			finally{
+				closeLoadingWithMask();
+			}
+			
+		}
+
+		async function register_producer(){
+			try{
+				LoadingWithMask();
+				var userAccount = await web3.eth.getAccounts();
+
+				console.log(userAccount[0]);
+
+				//생산자 등록
+				
+				set_producer = await Item_sol.methods.setUserToProducer(1).send({from:userAccount[0]});  
+				alert("접속한 계정이 생산자로 등록되었습니다.");
+				
+				
+				console.log(set_producer);
+				
+				document.getElementById('check_producer_btn').style.display='none';
+				makeSubmit();
+			}
+			catch(err){
+				alert("생산자 등록에 실패하였습니다.");
+				console.log(err);
+				location.href = "./index.html";
+			}
+			finally{
+				closeLoadingWithMask();
+			}
+			
+			//document.getElementById('item_upload_btn').style.display='block';
+			//document.getElementById('item_upload_btn').disabled=false;
+
+		}
+
+		//페이지 로드될때 버튼상태.
+		window.addEventListener("load", async function() {
+			try{
+				LoadingWithMask();
+
+				document.getElementById('check_signUp_btn').style.display='none';
+				document.getElementById('check_producer_btn').style.display='none';
+
+				var userAccount = await web3.eth.getAccounts(); 
+				console.log(userAccount);
+
+				console.log(userAccount[0]);
+
+				var balance = await Item_sol.methods.balanceOf(userAccount[0], 0).call();
+				console.log(balance);
+						
+				let check_signUp = await Item_sol.methods.isApprovedForAll(userAccount[0], governance).call();
+
+				console.log(check_signUp);
+	
+				if(check_signUp==true){
+					document.getElementById('check_signUp_btn').disabled=true;
+
+					let check_producer = await Item_sol.methods.getIsProducer(userAccount[0]).call();
+					
+					if(check_producer == true) makeSubmit(); //document.getElementById('item_upload_btn').style.display='block';
+					else document.getElementById('check_producer_btn').style.display='block';
+					
+				}
+				else{
+					document.getElementById('check_signUp_btn').style.display='block';
+				}
+			}
+			catch(err){
+				console.log(err);
+			}
+			finally{
+				closeLoadingWithMask();
+			}
+			//document.getElementById('item_upload_btn').style.display='none';
+			
+		});
+
+
+		function LoadingWithMask() {
+            var maskHeight = $(document).height();
+            var maskWidth = window.document.body.clientWidth;
+            //화면에 출력할 마스크를 설정해줍니다.   
+            var mask = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0; align-items:center; display: flex; justify-content:center;'>";
+          
+            mask += "<img src='../images/Spinner.gif' style=' position:relative; display: block;  margin: 0px auto;'/></div>";
+           
+            $('body')
+                .append(mask)
+ 
+            $('#mask').css({'width' : maskWidth, 'height': maskHeight, 'opacity' : '0.3'});
+            //마스크 표시    
+            $('#mask').show();
+          
+           }
+           
+        function closeLoadingWithMask(){
+            $('#mask').hide();
+            $('#mask').remove(); 
+        }
+
+	</script>
+
+  </body>
+  </html>

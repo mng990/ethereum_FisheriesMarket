@@ -1,0 +1,1425 @@
+<!-- /*
+* Template Name: Property
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+<!doctype html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="author" content="Untree.co">
+   <link rel="shortcut icon" href="../favicon.png">
+
+   <meta name="description" content="" />
+   <meta name="keywords" content="bootstrap, bootstrap5" />
+   
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+   <link rel="stylesheet" href="../fonts/icomoon/style.css">
+   <link rel="stylesheet" href="../fonts/flaticon/font/flaticon.css">
+
+   <link rel="stylesheet" href="../css/tiny-slider.css">
+   <link rel="stylesheet" href="../css/aos.css">
+   <link rel="stylesheet" href="../css/style.css">
+   <link rel="stylesheet" href="../css/modal_popup.css">
+
+   <title>수산물 경매 NFT</title>
+</head>
+<style>
+   
+    .file-list {
+        height: 200px;
+        overflow: auto;
+        border: 1px solid #989898;
+        padding: 10px;
+        border-radius: 0.25rem;
+        color: #212529;
+    }
+    .file-list .filebox p {
+        font-size: 14px;
+        margin-top: 10px;
+        display: inline-block;
+    }
+    .file-list .filebox .delete i{
+        color: #ff5353;
+        margin-left: 5px;
+    }
+</style>
+<body>
+
+   <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+         <div class="site-mobile-menu-close">
+            <span class="icofont-close js-menu-toggle"></span>
+         </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+   </div>
+
+   <nav class="site-nav">
+      <div class="container">
+         <div class="menu-bg-wrap">
+            <div class="site-navigation">
+               <a href="../index.html" class="logo m-0 float-start">수산물 경매 NFT</a>
+
+               <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">
+                  <li><a href="../index.html">홈</a></li>
+                  <li class="has-children">
+                     <a href="properties.html">경매 물품</a>
+                  </li>
+                  <li><a href="my_page.html">My Page</a></li>
+               </ul>
+            </div>
+         </div>
+      </div>
+   </nav>
+
+   <div class="hero page-inner overlay" style="background-image: url('../images/hero_bg_1.jpg');">
+
+      <div class="container">
+         <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+               <h1 class="heading" data-aos="fade-up">My Page</h1>
+
+               <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="200">
+                  <ol class="breadcrumb text-center justify-content-center">
+                     <li class="breadcrumb-item "><a href="../index.html">홈</a></li>
+                     <li class="breadcrumb-item active text-white-50" aria-current="page">My Page</li>
+                  </ol>
+               </nav>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div id="mypage_lst" class="section pt-0" style="margin-top: 100px;">
+      <div class="container">
+         <div id ="parent" class="row justify-content-between mb-5">
+            <!--왼쪽 버튼 클릭할 때마다 결과화면 보여주기 __ start-->
+            <div class="col-lg-7 mb-5 mb-lg-0 order-lg-2" id="show_mypage_result">
+
+            </div>
+            <!-- __ end -->
+            
+            <div class="col-lg-1 mb-5 mb-lg-0 order-lg-2" id="qrcode">
+            
+            </div>
+            
+            <div class="col-lg-4">
+               <div class="d-flex feature-h">
+                  <span class="wrap-icon me-3" onclick="show_receipt()">
+                     <span class="icon-home2"></span>
+                  </span>
+   
+                  <div class="feature-text">
+                     <h3 class="heading">창고</h3>
+                     <p class="text-black-50">보유한 상품 목록을 생성합니다.</p>   
+                  </div>
+               </div>
+
+               <div class="d-flex feature-h">
+                  <span class="wrap-icon me-3" onclick="show_nakchal()">
+                     <span class="icon-person"></span>
+                  </span>
+                  <div class="feature-text">
+                     <h3 class="heading">낙찰 내역</h3>
+                     <p class="text-black-50">낙찰받은 경매 목록을 생성합니다.</p>   
+                  </div>
+               </div>
+
+               <div class="d-flex feature-h">
+                  <span class="wrap-icon me-3" onclick="show_exchange()">
+                     <span class="icon-money"></span>
+                  </span>
+   
+                  <div class="feature-text">
+                     <h3 class="heading">환전소</h3>
+                     <p class="text-black-50">ETH와 MMT를 상호교환 합니다.</p>   
+                  </div>
+               </div>
+            </div>
+
+         </div>
+      </div>
+   </div>
+   <hr />
+   <!-- 사용자가 등록하기 버튼을 누르면, 경매대에 올리기 전 필요한 정보를 입력받아야 함 -->
+   <div id="deck" class="section" style="visibility: hidden;"> 
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-4 mb-5 mb-lg-0 justify-content-center" data-aos="fade-up" data-aos-delay="100">
+            </div> 
+            <div class="" data-aos="fade-up" data-aos-delay="200">
+               <form action="#" name = "myforma">
+                  <div class="row">
+                     <div class="col-4 mb-3">
+                        <input type="text" name="txt1a" class="form-control" placeholder="상품명">
+                     </div>
+                     <div class="col-4 mb-3">
+                        <input type="text" name="txt2a" class="form-control" placeholder="시작가격">
+                     </div>
+                     <div class="col-4 mb-3">
+								<input type="text" name="txt6a" class="form-control" placeholder="판매수량">
+							</div>
+                     <div class="col-4 mb-3">
+                        <input type="text" name="txt4a" class="form-control" placeholder="배송 출발지">
+                     </div>
+                            <div class="col-4 mb-3">
+                        <input type="datetime-local" step = "1" name="txt3a" class="form-control" placeholder="시작시간">
+                     </div>
+                     
+                     <div class="col-4 mb-3">
+                        <input type="datetime-local" step = "1" name="txt5a" class="form-control" placeholder="마감시간">
+                     </div>
+                     <div class="col-12">
+                        <input type="button" value="등록" class="btn btn-primary" onclick="deck_register()">
+                        <input type="button" value="취소" class="btn btn-primary" onclick="">
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div> 
+
+
+   <div class="site-footer">
+      <div class="container">
+         <div class="row"></div> 
+            <div class="col-12 text-center">
+               <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by 우유와고기조</a> 
+               </p>
+          </div>
+        </div>
+      </div> <!-- /.container -->
+    </div> <!-- /.site-footer -->
+
+
+    <!-- Preloader -->
+    <div id="overlayer"></div>
+    <div class="loader">
+       <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+       </div>
+    </div>
+
+   <div id="modal" class="modal-overlay" style="display: none;">
+        <div id="mwindow" class="modal-window">
+          <!-- <div class="title">
+              <h2>배송 정보 확인</h2>
+            </div>--> 
+            <div class="close-area">X</div>
+            <div id="modal_content" class="content">
+            <!-- <h5>경로</h5> -->
+            <h5 id="supplyHeader" style="color: #FFEBCD	"></h5>
+            <div id="modal_status"></div>
+            <hr id="hr_supply" style='visibility:hidden'>
+
+            <h5 id="envHeader" style="color: #FFEBCD	"></h5>
+                <div id="modal_temp_humi"></div>
+
+            <h5 id="routeHeader" style="color: #FFEBCD	"></h5>
+                  <div id="modal_route"></div>
+            <hr id ="hr_route" style='visibility:hidden'>
+
+            <h5 id="QRHeader" style="color: #FFEBCD	"></h5>
+            <div id="QRCode"></div>
+            <h5 id="rateHeader" style="color: #FFEBCD"></h5>
+               <div id="modal_exrate"></div>
+            <hr id ="hr_rate" style='visibility:hidden'>
+
+            <h5 id="ETHtoMMTheader" style="color: #FFEBCD"></h5>
+               <div id="modal_ETHtoMMT"></div>
+            <hr id="hr_EtoM" style='visibility:hidden'>
+
+            <h5 id="MMTtoETHheader" style="color: #FFEBCD"></h5>
+               <div id="modal_MMTtoEth"></div>
+            </div>
+            </div>
+        </div>
+   <script language="javascript" type="text/javascript" src="../libraries/p5.min.js"></script>
+    <script language="javascript" type="text/javascript" src="../libraries/p5.ble.js"></script>
+    <script language="javascript" type="text/javascript" src="../js/bluetooth.js"></script>
+   
+    <script src="https://cdn.jsdelivr.net/npm/bn@1.0.5/index.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/ipfs@0.64.2/dist/index.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+   <script type="text/javascript" src="../jquery.min.js"></script>
+   <script type="text/javascript" src="../qrcode.js"></script>
+   <!-- <script type="text/javascript" src="jquery.qrcode.min.js"></script> -->
+   <script src="../Auction_abi.js"></script>
+   <script src="../Item_abi.js"></script>
+    <script src="../Supply_abi.js"></script>
+
+   <script src="../js/index.js"></script>
+	<script src="../js/metadata.js"></script>
+
+
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/tiny-slider.js"></script>
+    <script src="../js/aos.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/counter.js"></script>
+    <script src="../js/custom.js"></script>
+
+    <script>
+      const deckk = document.getElementById("deck");
+      var glb_tr_num;
+      var ownedId=new Array();
+		var all_balance=new Array();
+      var userAccount;
+      let ownedAuctions  = new Array();
+      let nakchal_item = new Array();
+      let item = new Array();
+      let dStatus = ["배송 종료", "배송 준비", "배송 시작"];
+      var flag = false; //버튼 여러번 눌렀을 때 테이블 중복 생성 방지
+      let modal;
+      
+      var modal_flag = false;
+      var modalR_flag = false;
+      var modalE_flag = false;
+
+      window.addEventListener("load", async function() {
+         try{
+				LoadingWithMask();
+
+
+				
+				ipfs = await Ipfs.create();
+
+				blueTooth = new p5ble();
+				userAccount = await web3.eth.getAccounts();
+
+            if(await Item_sol.methods.isApprovedForAll(userAccount[0], governance).call() == false){
+               location.href = "../index.html";
+            }
+            var auctionId = await Auction_sol.methods.getAuctionId().call();
+
+            for(var i = 1; i<auctionId; i++){
+               var bln = await Auction_sol.methods.balanceOf(userAccount[0],i).call();
+               console.log(bln);
+               if(bln == 1){
+                  var owned = await readMetadata(i, dirAuc, ipfs);
+                  ownedAuctions.push(owned);
+                  nakchal_item.push(await readMetadata(owned.itemId, dir, ipfs));
+                  console.log(nakchal_item);
+               }
+			}
+         console.log("Item URI", await Item_sol.methods.uri(await Item_sol.methods.getItemId().call()).call());
+         console.log("Auction URI", await Auction_sol.methods.uri(auctionId).call());
+
+				
+			}catch(err){
+				console.log(err);
+			}finally{
+				closeLoadingWithMask()
+			}
+	
+        //  console.log(nakchal_item,"Dddddddddddddd")
+
+      });
+
+
+      function LoadingWithMask() {
+            var maskHeight = $(document).height();
+            var maskWidth = window.document.body.clientWidth;
+            //화면에 출력할 마스크를 설정해줍니다.   
+            var mask = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0; align-items:center; display: flex; justify-content:center;'>";
+          
+            mask += "<img src='../images/Spinner.gif' style=' position:relative; display: block;  margin: 0px auto;'/></div>";
+           
+            $('body')
+                .append(mask)
+ 
+            $('#mask').css({'width' : maskWidth, 'height': maskHeight, 'opacity' : '0.3'});
+            //마스크 표시    
+            $('#mask').show();
+          
+           }
+           
+        function closeLoadingWithMask(){
+            $('#mask').hide();
+            $('#mask').remove(); 
+        }
+
+
+      function removeAllchild(div) {
+         while (div.hasChildNodes()) {
+            div.removeChild(div.firstChild);
+         }
+      }
+      
+      function delete_table(flag){
+         const area = document.getElementById("show_mypage_result");
+         if(flag){
+            removeAllchild(area);
+         }
+      }
+
+
+      $(document).ready(function() {
+        $("button").on("click", function() {
+           var index = $(this).parent().parent().index();
+           console.log("deeeeee");
+           console.log("index : "+ index);
+           
+        });
+     });
+
+
+     async function deck_register(){
+			//사용자가 입력한 값 가져오기 (form으로 가져오기)
+			var auctionData = new Object(); 
+			var auctionTitle = String(myforma.txt1a.value);
+            var startPrice = parseInt(myforma.txt2a.value);
+			var stock = parseInt(myforma.txt6a.value);
+			var itemId = parseInt(ownedId[glb_tr_num-1]);
+			var startTime = Date.parse(myforma.txt3a.value)/1000;
+			var blockDeadLine =Date.parse(myforma.txt5a.value)/1000;
+			var shippingFrom = String(myforma.txt4a.value);
+
+			
+			event.preventDefault();
+
+			
+			console.log("아이템 아이디",ownedId[glb_tr_num-1])
+
+			//경매에 아이템 등록
+			try{
+				LoadingWithMask();
+
+				console.log(all_balance[glb_tr_num-1]);
+				console.log(stock);
+				if(all_balance[glb_tr_num-1] < stock){
+					throw "lack of balance";
+				}
+
+				let auctionId = await Auction_sol.methods.getAuctionId().call();
+				auctionData = await buildAuctionData(auctionId, itemId, auctionTitle, startPrice, 0, stock, userAccount[0], 0,shippingFrom, "", startTime, blockDeadLine);
+				console.log(auctionData);
+
+				//await ipfs.files.rm(dirAuc+'/' + auctionId.toString().padStart(64, '0')+ '.json');
+
+				await writeAuctionData(auctionId, auctionData, ipfs, false);
+
+				//await ipfs.files.write(dirAuc+'/' + pathIdx+ '.json', buf, { create: true });
+
+				var dirCID = await ipfs.files.stat(dirAuc);
+                dirCID = dirCID.cid.toString();
+                console.log(dirCID);
+                console.log(itemId);
+                console.log(stock);
+                console.log(shippingFrom);
+
+				//var jsonData = await readMetadata(nextId, dirAuc, ipfs);
+
+				let create_Auction = await Auction_sol.methods.createAuction(itemId,stock, shippingFrom,dirCID).send({from:userAccount[0]});
+
+				deckk.style.visibility = "hidden";
+				console.log(glb_tr_num,"아이디");
+				document.getElementsByTagName("tr")[glb_tr_num].getElementsByTagName("button")[0].style.visibility = 'hidden';
+				alert("경매대에 등록되었습니다.");
+
+				location.href = "#mypage_lst";
+			}catch(err){
+				if(err == "lack of balance"){
+					alert("보유한 수량이 부족합니다.");
+				}
+				else {
+					console.log(err);
+					//alert("등록에 실패했습니다.");
+				}
+			}finally{
+				closeLoadingWithMask()
+			}
+			//등록한 아이템의 경매상태 active
+			//var set_active = await rwSupply_sol.methods.setActiveByItemId(itemId,1).send({from:userAccount[0]});
+			//console.log("ㅇㅔㄱㅌㅣㅂㅡ",create_Auction);
+
+			//var auction_id = await Auction_sol.methods
+       
+			//deckk hidden + button 없애기
+			
+		}
+      
+      function show_deck_info(tr_num){
+         
+         
+         console.log("경매대에 등록하기");
+         console.log("tr_num : ",tr_num);
+         //내물품 테이블의 등록하기 버튼누르면 해당 등록하기버튼의 인덱스를 전역변수로.
+         glb_tr_num=tr_num+1;
+         
+         
+         var item_data = new Array();
+         //1. 사용자가 등록버튼 누르면 등록한 item 정보들 가져오는 방법
+         for(var i=0; i<5; i++){
+            item_data[i]=document.getElementsByTagName("tr")[tr_num+1].getElementsByTagName("td")[i].innerText;
+            console.log(document.getElementsByTagName("tr")[tr_num+1].getElementsByTagName("td")[i].innerText);
+         
+         }
+         console.log(glb_tr_num)
+         
+         
+         //2. 경매대에 등록 sm 호출
+         
+
+
+         //3. 경매대에 올릴때 필요한 정보들 <= 사용자가 입력해야함 UI 테이블 밑단에 뜨게하기 ( 빈칸 오류 처리 )
+
+         //3-1. 등록이 성공적으로 되면, alert + 정보 입력칸 hidden 
+         //3-2. 등록 취소하면, list에 버튼 다시 visible?(->tr_num 알아야함) + 정보 입력칸 hidden
+
+         deckk.style.visibility = "visible"; //전역변수로 
+         location.href = "#deck";
+
+      }
+      
+      // function a(){
+      //    try{
+      //    LoadingWithMask()
+      //    show_receipt()
+      //    }catch(err){
+
+      //    }finally{
+
+      //    setTimeout(function() {
+        //     console.log('Hello World!');
+        //     closeLoadingWithMask()
+        //     }, 2000);
+      // }
+
+      // }
+
+      async function show_receipt(){
+			
+			//flag 가 true면 보여지는 table 삭제해야함
+			delete_table(flag);
+			//var userAccount = await web3.eth.getAccounts();
+			
+
+			var ownedItem = new Array();
+			var len = await Item_sol.methods.getItemId().call();
+			var ownedIdx = 0;
+			for(var i=1; i<len;i++){
+				var balance = parseInt(await Item_sol.methods.balanceOf(userAccount[0],i).call());
+				console.log("balance: ", balance);
+
+				if(balance > 0){
+					console.log(ownedId, ownedIdx, i);
+					ownedItem[ownedIdx] = await readMetadata(i, dir, ipfs);
+					ownedItem[ownedIdx].amount = balance;
+					console.log(ownedItem[i]);
+					ownedId.push(i);
+					all_balance.push(balance);
+					ownedIdx++;
+				}
+				console.log(all_balance);
+			}
+			//var auction_ownedItemId;
+		
+			console.log(ownedItem[0]);
+			//console.log(auction_itemId);
+
+			console.log("사용자의 등록한 item들 보여줄 것");
+			let table = document.createElement('table');
+			let thead = document.createElement('thead');
+			let tbody = document.createElement('tbody');
+
+			table.appendChild(thead);
+			table.appendChild(tbody);
+
+			document.getElementById("show_mypage_result").appendChild(table);
+
+			//table에 class name 지정 _ real_table
+			var attr = document.createAttribute("class");
+			attr.value = "real_table";
+			var t = document.getElementsByTagName("TABLE")[0];
+			t.setAttributeNode(attr);
+
+			let row_1 = document.createElement('tr');
+			let heading_1 = document.createElement('th');
+			heading_1.innerHTML = "No.";
+			let heading_2 = document.createElement('th');
+			heading_2.innerHTML = "생선품명";
+			let heading_3 = document.createElement('th');
+			heading_3.innerHTML = "무게(kg)";
+			let heading_4 = document.createElement('th');
+			heading_4.innerHTML = "개수";
+			let heading_5 = document.createElement('th');
+			heading_5.innerHTML = "원산지";
+			let heading_6 = document.createElement('th');
+			heading_6.innerHTML = "경매 등록";
+
+			row_1.appendChild(heading_1);
+			row_1.appendChild(heading_2);
+			row_1.appendChild(heading_3);
+			row_1.appendChild(heading_4);
+			row_1.appendChild(heading_5);
+			row_1.appendChild(heading_6);
+			thead.appendChild(row_1);
+			
+
+			var cnt = ownedId.length; // 사용자가 등록한 item 개수
+         console.log("cnt: ", cnt);
+			
+			//for 문으로 sm 으로부터 받은 값 파싱해서 보여주기
+			for(var i = 0; i < cnt; i++){
+				console.log(ownedItem[i])
+
+				let row_2 = document.createElement('tr');
+				let row_2_data_1 = document.createElement('td');
+				row_2_data_1.innerHTML = i+1;
+
+				//픔명
+				let row_2_data_2 = document.createElement('td');
+            let row_2_data_2_a = document.createElement('a');
+            row_2_data_2_a.innerHTML = ownedItem[i].name;
+            row_2_data_2_a.href = await get_item_uri(ownedId[i]);
+            row_2_data_2_a.target = '_blank';
+            row_2_data_2.appendChild(row_2_data_2_a);
+				//무게
+				let row_2_data_3 = document.createElement('td');
+				row_2_data_3.innerHTML = ownedItem[i].weight;
+
+				//개수
+				let row_2_data_4 = document.createElement('td');
+				row_2_data_4.innerHTML = ownedItem[i].amount;
+
+				//원산지
+				let row_2_data_5 = document.createElement('td');
+				row_2_data_5.innerHTML = ownedItem[i].origin;
+
+				// //버튼
+				// let row_2_data_6 = document.createElement('button');
+				// row_2_data_6.innerHTML = "버튼";
+
+				row_2.appendChild(row_2_data_1);
+				row_2.appendChild(row_2_data_2);
+				row_2.appendChild(row_2_data_3);
+				row_2.appendChild(row_2_data_4);
+				row_2.appendChild(row_2_data_5);
+				//row_2.appendChild(row_2_data_6);
+				tbody.appendChild(row_2);
+
+				var idx = i+1;
+				
+				
+				//내아이템이 아직경매대에 안올라간상태면 등록하기 버튼생성. 
+				document.getElementsByTagName("tr")[idx].innerHTML += 
+						'<td><button id='+idx+' class="btn btn-primary" style="padding:10px;" onclick="show_deck_info('  + i + ' )" >등록</button></td>';
+            
+				// else if(active_check==true && item[i].owner==userAccount[0]){
+				// 	console.log("경매끝내기")
+				// 	document.getElementsByTagName("tr")[idx].innerHTML += 
+				// 		'<td><button id='+auction_itemId[i]+' class="btn btn-primary" style="padding:10px;" onclick="finish('  + "this.id" + ' )" >경매끝내기</button></td>';
+				// 	console.log(i,"번째 옥션아이디",auction_itemId[i]);
+					
+				// }
+				
+				// smart contract 연동할때 아이템 인자값 넘겨주면 아래처럼 사용
+				//console.log(document.getElementsByTagName("tr")[1].getElementsByTagName("td")[2].innerText);
+			}
+
+			flag = true;
+
+		}
+
+      async function show_exchange(){
+         delete_table(flag);
+         let table = document.createElement('table');
+			let thead = document.createElement('thead');
+			let tbody = document.createElement('tbody');
+
+			table.appendChild(thead);
+			table.appendChild(tbody);
+         table.style.textAlign = "center";
+
+			document.getElementById("show_mypage_result").appendChild(table);
+
+         let row_1 = document.createElement('tr');
+			let heading_1 = document.createElement('th');
+         heading_1.innerHTML = "보유한 MMT";
+         let heading_2 = document.createElement('th');
+         heading_2.innerHTML = "보유한 ETH";
+         let heading_3 = document.createElement('th');
+         heading_3.innerHTML = "";
+
+         row_1.appendChild(heading_1);
+         row_1.appendChild(heading_3);
+         row_1.appendChild(heading_2);
+         thead.appendChild(row_1);
+
+         let row_2 = document.createElement('tr');
+         let row_2_data_1 = document.createElement('td');
+         row_2_data_1.id = "balanceOfMMT";
+         row_2_data_1.innerHTML = await Item_sol.methods.balanceOf(userAccount[0], 0).call();
+
+         let wei = await web3.eth.getBalance(userAccount[0]);
+         let row_2_data_2 = document.createElement('td');
+         row_2_data_2.id = "balanceOfETH";
+         row_2_data_2.innerHTML = Math.round((await web3.utils.fromWei(wei, "ether"))*1000)/1000;
+
+         let row_2_data_btn = document.createElement('td');
+         row_2_data_btn.innerHTML = '<button class="btn btn-primary" style="padding:10px;" onclick="show_modal_exchange()" ><span class="icon-exchange"></span></button>';
+
+         row_2.appendChild(row_2_data_1);
+         row_2.appendChild(row_2_data_btn);
+         row_2.appendChild(row_2_data_2);
+         tbody.appendChild(row_2);
+
+         flag = true;
+      }
+
+      
+
+      async function show_item_uri(itemId){
+         var uri = await Item_sol.methods.uri(itemId).call();
+         location.href = uri.substring(0, uri.length-9) +dirName+'/'+ (itemId.toString()).padStart(64,'0') + '.json';
+      }
+
+      async function show_auction_uri(aucId){
+         var uri = await Auction_sol.methods.uri(aucId).call();
+         location.href = uri.substring(0, uri.length-9)+ (aucId.toString()).padStart(64,'0') + '.json';
+      }
+
+      async function get_item_uri(itemId){
+         var uri = await Item_sol.methods.uri(itemId).call();
+         return uri.substring(0, uri.length-9) +dirName+'/'+ (itemId.toString()).padStart(64,'0') + '.json';
+      }
+
+      async function get_auction_uri(aucId){
+         var uri = await Auction_sol.methods.uri(aucId).call();
+         return uri.substring(0, uri.length-9)+ (aucId.toString()).padStart(64,'0') + '.json';
+      }
+      
+      
+      
+      async function finish(a_id){
+      console.log(a_id);
+      event.preventDefault();
+      var userAccount = await web3.eth.getAccounts();
+      try{
+         LoadingWithMask()
+         var a = await Auction_sol.methods.finalizeAuction((a_id)).send({from:userAccount[0]});
+         console.log("경매 끝",a);
+         alert("경매가 마감되었습니다.");
+         window.location.close();
+      }catch(err){
+         alert("경매 마감에 실패했습니다.");
+         return
+      }finally{
+         closeLoadingWithMask()
+      }
+      
+    }
+    async function show_nakchal(){
+
+      //flag 가 true면 보여지는 table 삭제해야함
+      delete_table(flag);
+      console.log(flag);
+      //var userAccount = await web3.eth.getAccounts();
+
+      //낙찰된 내역 가져오기
+      //ownedId= await Auction_sol.methods.getOwnedBy(userAccount[0]).call();
+
+      var item = new Array();
+      var temp = new Array();
+      var price = new Array();
+
+
+      console.log(ownedAuctions);
+      //console.log(item);
+
+
+      console.log("사용자의 등록한 item들 보여줄 것");
+      let table = document.createElement('table');
+      let thead = document.createElement('thead');
+      let tbody = document.createElement('tbody');
+
+      table.appendChild(thead);
+      table.appendChild(tbody);
+
+      document.getElementById("show_mypage_result").appendChild(table);
+
+      //table에 class name 지정 _ real_table
+      var attr = document.createAttribute("class");
+      attr.value = "real_table";
+      var t = document.getElementsByTagName("TABLE")[0];
+      t.setAttributeNode(attr);
+
+      let row_1 = document.createElement('tr');
+      let heading_2 = document.createElement('th');
+      heading_2.innerHTML = "옥션ID";
+      let heading_3 = document.createElement('th');
+      heading_3.innerHTML = "상품명";
+      let heading_4 = document.createElement('th');
+      heading_4.innerHTML = "수량";
+      let heading_5 = document.createElement('th');
+      heading_5.innerHTML = "시작가";
+      let heading_6 = document.createElement('th');
+      heading_6.innerHTML = "낙찰가";
+      let heading_7 = document.createElement('th');
+      heading_7.innerHTML = "낙찰일";
+      let heading_8 = document.createElement('th');
+      heading_8.innerHTML = "배송정보"
+      let heading_9 = document.createElement('th');
+      heading_9.innerHTML = "경로추적";
+      
+
+      row_1.appendChild(heading_2);
+      row_1.appendChild(heading_3);
+      row_1.appendChild(heading_4);
+      row_1.appendChild(heading_5);
+      row_1.appendChild(heading_6);
+      row_1.appendChild(heading_7);
+      row_1.appendChild(heading_8);
+      row_1.appendChild(heading_9);
+      thead.appendChild(row_1);
+
+      var cnt =ownedAuctions.length;
+      //var cnt = ownedId.length; // 사용자가 등록한 item 개수
+
+      //for 문으로 sm 으로부터 받은 값 파싱해서 보여주기
+      for(var i = 0; i < ownedAuctions.length; i++){
+         let row_2 = document.createElement('tr');
+         let row_2_data_1 = document.createElement('td');
+         row_2_data_1.innerHTML = i+1;
+
+         //옥션ID
+         let row_2_data_2 = document.createElement('td');
+         row_2_data_2.innerHTML = ownedAuctions[i].auctionId;
+         //상품명
+         let row_2_data_3 = document.createElement('td');
+         let row_2_data_3_a = document.createElement('a');
+         row_2_data_3_a.innerHTML = ownedAuctions[i].auctionTitle;
+         row_2_data_3_a.href = await get_auction_uri(ownedAuctions[i].auctionId);
+         row_2_data_3_a.target = '_blank';
+
+         row_2_data_3.appendChild(row_2_data_3_a);
+
+         //수량
+         let row_2_data_4 = document.createElement('td');
+         row_2_data_4.innerHTML = ownedAuctions[i].stock;
+
+         //시작가
+         let row_2_data_5 = document.createElement('td');
+         row_2_data_5.innerHTML = ownedAuctions[i].startPrice;
+
+         //낙찰가
+         let row_2_data_6 = document.createElement('td');
+         row_2_data_6.innerHTML = ownedAuctions[i].winningPrice;
+
+         //낙찰일
+         let row_2_data_7 = document.createElement('td');
+         var blockDate = new Date(ownedAuctions[i].blockDeadLine*1000);
+         row_2_data_7.innerHTML += blockDate.getFullYear()+
+         "-"+(blockDate.getMonth()+1)+
+         "-"+blockDate.getDate().toString().padStart(2,'0');
+
+         //배송정보 버튼
+         let row_2_data_8 = document.createElement('td');
+         row_2_data_8.innerHTML = '<button class="btn btn-primary" style="padding:10px;" onclick="show_delivery_info('+ownedAuctions[i].auctionId+')" >보기</button>';
+         let row_2_data_9 = document.createElement('td');
+         row_2_data_9.innerHTML = '<button class="btn btn-primary" style="padding:10px;" onclick="show_route_info('+ownedAuctions[i].itemId+')" >보기</button>';
+        
+         row_2.appendChild(row_2_data_2);
+         row_2.appendChild(row_2_data_3);
+         row_2.appendChild(row_2_data_4);
+         row_2.appendChild(row_2_data_5);
+         row_2.appendChild(row_2_data_6);
+         row_2.appendChild(row_2_data_7);
+         row_2.appendChild(row_2_data_8);
+         row_2.appendChild(row_2_data_9);
+
+         tbody.appendChild(row_2);
+      }
+
+      flag = true;
+
+      }
+
+      function create_new(id){
+         console.log(id,"Dddddd")
+         //id = parseInt(id)
+         //id+=1
+         location.href="qr_page.html?a="+id
+         
+      }
+
+   //0918 서현 
+
+
+async function show_delivery_info(aucId){
+   // 경로 table 생성
+   //Modal_show_route(); 
+   // 온습도 table 생성
+   var mwindowHeight = await Modal_show_tempnhumi(aucId);
+
+   var maskHeight = $(document).height();
+    var maskWidth = window.document.body.clientWidth;
+    console.log(maskHeight);
+    $('#mwindow').css({'height': mwindowHeight});
+   $('#modal').css({'width' : maskWidth, 'height': maskHeight});
+   modal = document.getElementById("modal");
+   modal.style.display = "flex";
+   console.log(modal);
+   let closeBtn = modal.querySelector(".close-area")
+   closeBtn.addEventListener("click", e => {
+      modal.style.display = "none"
+   })
+
+}
+
+async function show_route_info(ownedItemId){
+   // 경로 table 생성
+   //Modal_show_route(); 
+   // 온습도 table 생성
+   var mwindowHeight = await Modal_show_route(ownedItemId);
+
+   var maskHeight = $(document).height();
+    var maskWidth = window.document.body.clientWidth;
+    $('#mwindow').css({'height': mwindowHeight});
+   $('#modal').css({'width' : maskWidth, 'height': maskHeight});
+   modal = document.getElementById("modal");
+   modal.style.display = "flex";
+   console.log(modal);
+
+   let closeBtn = modal.querySelector(".close-area")
+   closeBtn.addEventListener("click", e => {
+      modal.style.display = "none"
+   })
+}
+
+async function Modal_delete(){
+   if(modal_flag){
+      document.getElementById("supplyHeader").innerHTML = "";
+      document.getElementById("envHeader").innerHTML = "";
+      document.getElementById("hr_supply").style.visibility = "hidden";
+     let mt = document.getElementById("modal_temp_humi");
+     let ms = document.getElementById("modal_status");
+     while (mt.hasChildNodes()) {  
+       mt.removeChild(mt.firstChild);
+     }
+     while (ms.hasChildNodes()) {  
+       ms.removeChild(ms.firstChild);
+     }
+     modal_flag = false;
+   }
+
+   if(modalR_flag){
+      document.getElementById("routeHeader").innerHTML = "";
+      document.getElementById("QRHeader").innerHTML = "";
+      document.getElementById("hr_route").style.visibility = "hidden";
+
+      let mr = document.getElementById("modal_route");
+      let qr = document.getElementById("QRCode");
+
+     while (mr.hasChildNodes()) {  
+      mr.removeChild(mr.firstChild);
+     }
+     while (qr.hasChildNodes()) {  
+      qr.removeChild(qr.firstChild);
+     }
+     modalR_flag = false;
+   }
+
+   if(modalE_flag){
+      document.getElementById("rateHeader").innerHTML = "";
+      document.getElementById("ETHtoMMTheader").innerHTML = "";
+      document.getElementById("MMTtoETHheader").innerHTML = "";
+
+      document.getElementById("hr_rate").style.visibility = "hidden";
+      document.getElementById("hr_EtoM").style.visibility = "hidden";
+
+      let mEx = document.getElementById("modal_exrate");
+
+      let mEM = document.getElementById("modal_ETHtoMMT");
+      let mME = document.getElementById("modal_MMTtoEth");
+
+   while (mEx.hasChildNodes()) {  
+      mEx.removeChild(mEx.firstChild);
+     }
+     while (mEM.hasChildNodes()) {  
+      mEM.removeChild(mEM.firstChild);
+     }
+     while (mME.hasChildNodes()) {  
+      mME.removeChild(mME.firstChild);
+     }
+     modalE_flag = false;
+   }
+}
+
+async function Modal_show_route(ownedItemId){
+   var mwindowHeight = 8;
+   var path = new Array();
+   var pathStrArr = new Array();
+	var map = new Array();
+   var mapRow = new Array();
+
+   Modal_delete();
+
+
+   console.log("show route start");
+
+
+   document.getElementById("routeHeader").innerHTML = "배송 경로";
+   document.getElementById("hr_route").style.visibility = "visible";
+
+
+
+	map = await Auction_sol.methods.getMapOfUser(ownedItemId).call({from:userAccount[0]});
+		
+
+      for(var i=0; i<map.length; i++){
+			var pathRow = new Array();
+			for(var j=0; j<map[i].length; j++){
+            var aucmId = map[i][j];
+            console.log(aucmId);
+            var aucm = await readMetadata(aucmId, dirAuc, ipfs);
+            pathRow.push(aucm.shippingFrom, aucm.shippingTo);
+         }
+         path.push(pathRow);
+		}
+
+   
+   console.log(path);
+
+   //console.log("사용자의 등록한 item들 보여줄 것");
+   let table = document.createElement('table');
+   let thead = document.createElement('thead');
+   let tbody = document.createElement('tbody');
+
+   table.appendChild(thead);
+   table.appendChild(tbody);
+
+   document.getElementById("modal_route").appendChild(table);
+
+   let row_2 = document.createElement('tr');
+
+   let heading_4 = document.createElement('th');
+   heading_4.innerHTML = "No.";
+   let heading_5 = document.createElement('th');
+   heading_5.innerHTML = "경로";
+   
+   row_2.appendChild(heading_4);
+   row_2.appendChild(heading_5);
+
+
+   thead.appendChild(row_2);
+
+
+   for(var i=0; i<path.length; i++){
+      mwindowHeight++;
+      var pathStr = "";
+     let row_3 = document.createElement('tr');
+     let row_3_data_1 = document.createElement('td'); 
+     let row_3_data_2 = document.createElement('td');   
+     row_3_data_1.style = "center";
+     row_3_data_2.style = "center";
+  
+     for(var j=0;j<path[i].length;j++){
+         console.log(path[i][j]);
+         if(j>0){
+            if(path[i][j] == path[i][j-1]){
+               console.log("pass");
+               continue;
+            }
+            else{
+               pathStr += " -> ";
+            }
+         }
+         pathStr += path[i][j];
+     }
+     row_3_data_1.innerHTML = i+1;
+     row_3_data_2.innerHTML = pathStr;
+     row_3.appendChild(row_3_data_1);
+     row_3.appendChild(row_3_data_2);
+
+     tbody.appendChild(row_3);
+     pathStrArr.push(pathStr);
+   }
+
+   console.log(pathStrArr);
+
+   document.getElementById("QRHeader").innerHTML = "QR코드";
+
+   let qrtable = document.createElement('table');
+   let qrthead = document.createElement('thead');
+   let qrtbody = document.createElement('tbody');
+
+   qrtable.appendChild(qrthead);
+   qrtable.appendChild(qrtbody);
+
+   document.getElementById("QRCode").appendChild(qrtable);
+
+   let row_4 = document.createElement('tr');
+   row_4.innerHTML += 
+      '<td><button id='+ownedItemId+' class="btn btn-primary" onclick="create_new('+"" + ownedItemId + ""+')">생성</button></td></tr>';
+   qrtbody.appendChild(row_4);
+
+   modalR_flag = true;
+
+   return mwindowHeight*40;
+}
+
+
+
+async function Modal_show_tempnhumi(aucId){
+   var mwindowHeight = 6;
+   Modal_delete();
+
+   document.getElementById("supplyHeader").innerHTML += "배송 현황";
+   document.getElementById("envHeader").innerHTML += "온습도 정보";
+
+   document.getElementById("hr_supply").style.visibility = "visible";
+
+
+
+   let tableStatus = document.createElement('table');
+   let theadStatus = document.createElement('thead');
+   let tbodyStatus = document.createElement('tbody');
+
+   tableStatus.appendChild(theadStatus);
+   tableStatus.appendChild(tbodyStatus);
+
+   document.getElementById("modal_status").appendChild(tableStatus);
+
+   let row_1_s = document.createElement('tr');
+
+   let heading_1_s = document.createElement('th');
+   heading_1_s.innerHTML = "상태";
+   let heading_2_s = document.createElement('th');
+   heading_2_s.innerHTML = "배송 시간";
+   row_1_s.appendChild(heading_1_s);
+   row_1_s.appendChild(heading_2_s);
+
+   theadStatus.appendChild(row_1_s);
+
+   var deliv = await Supply_sol.methods.getDeliveryStatusByAuctionId(aucId).call();
+   var dtimeStamp = await Supply_sol.methods.getDeliveryTimeStampByAcutionId(aucId).call();
+   console.log("status: ",deliv);
+   var loop = (deliv==0) ? 3 : deliv; 
+
+   for(var i=1; i<=loop; i++){
+      mwindowHeight++;
+      var idx;
+      if(i == 3) idx=0;
+      else       idx=i;
+
+      let time = new Date(dtimeStamp[idx]*1000);
+      let row_2_s = document.createElement('tr');
+     let row_2_s_data_1 = document.createElement('td');
+     let row_2_s_data_2 = document.createElement('td');
+
+
+     row_2_s_data_1.innerHTML = dStatus[idx];
+     row_2_s_data_2.innerHTML = time.getFullYear() + "-"+(time.getMonth()+1).toString().padStart(2,'0')
+                                 + "-"+(time.getDate()).toString().padStart(2,'0') + " "
+                                 + time.getHours().toString().padStart(2,'0')
+                                 + ":"+time.getMinutes().toString().padStart(2,'0')
+                                 + ":"+time.getSeconds().toString().padStart(2,'0');
+
+     row_2_s.appendChild(row_2_s_data_1);
+     row_2_s.appendChild(row_2_s_data_2);
+
+     tbodyStatus.appendChild(row_2_s);
+     modal_flag = true;
+   }
+
+   let envInfo = await Supply_sol.methods.getEnvInformationByAuctionId(aucId).call();
+   console.log("envInfo: ", envInfo);
+   //console.log("사용자의 등록한 item들 보여줄 것");
+   let table = document.createElement('table');
+   let thead = document.createElement('thead');
+   let tbody = document.createElement('tbody');
+
+   table.appendChild(thead);
+   table.appendChild(tbody);
+
+   document.getElementById("modal_temp_humi").appendChild(table);
+
+   let row_1 = document.createElement('tr');
+
+   let heading_4 = document.createElement('th');
+   heading_4.innerHTML = "측정 시간";
+   let heading_5 = document.createElement('th');
+   heading_5.innerHTML = "온도";
+   let heading_6 = document.createElement('th');
+   heading_6.innerHTML = "습도";
+
+   row_1.appendChild(heading_4);
+   row_1.appendChild(heading_5);
+   row_1.appendChild(heading_6);
+
+   thead.appendChild(row_1);
+
+   //var cnt = nakchal_item.length;
+
+
+   for(var i = 0; i < envInfo.length; i++){
+      mwindowHeight++;
+     let envArr = envInfo[i].split('+');
+     let time = new Date(envArr[2]*1000);
+
+     let row_2 = document.createElement('tr');
+     let row_2_data_1 = document.createElement('td');
+     row_2_data_1.innerHTML = i+1;
+
+     //No
+     let row_2_data_2 = document.createElement('td');
+     //row_2_data_2.innerHTML = String(nakchal_item[i][0]);
+     row_2_data_2.innerHTML = time.getFullYear() + "-"+(time.getMonth()+1).toString().padStart(2,'0')
+                                 + "-"+(time.getDate()).toString().padStart(2,'0') + " "
+                                 + time.getHours().toString().padStart(2,'0')
+                                 + ":"+time.getMinutes().toString().padStart(2,'0')
+                                 + ":"+time.getSeconds().toString().padStart(2,'0');
+     
+     //온도
+     let row_2_data_3 = document.createElement('td');
+     //row_2_data_3.innerHTML = nakchal_item[i][1];
+     row_2_data_3.innerHTML = envArr[1];
+
+     //습도
+     let row_2_data_4 = document.createElement('td');
+     //row_2_data_4.innerHTML = nakchal_item[i][2] ;
+     row_2_data_4.innerHTML = envArr[0];
+
+
+     row_2.appendChild(row_2_data_2);
+     row_2.appendChild(row_2_data_3);
+     row_2.appendChild(row_2_data_4);
+     tbody.appendChild(row_2);
+   }   
+
+   return mwindowHeight*40;
+}
+
+async function show_modal_exchange(){
+   var mwindowHeight = await Modal_exchange();
+   var maskHeight = $(document).height();
+    var maskWidth = window.document.body.clientWidth;
+    $('#mwindow').css({'height': mwindowHeight});
+   $('#modal').css({'width' : maskWidth, 'height': maskHeight});
+   modal = document.getElementById("modal");
+   modal.style.display = "flex";
+   console.log(modal);
+
+   let closeBtn = modal.querySelector(".close-area")
+   closeBtn.addEventListener("click", e => {
+      modal.style.display = "none"
+   })
+}
+
+async function Modal_exchange(){
+   var mwindowHeight = 11;
+   Modal_delete();
+
+   document.getElementById("rateHeader").innerHTML += "환율";
+   document.getElementById("hr_rate").style.visibility = "visible";
+   document.getElementById("hr_EtoM").style.visibility = "visible";
+
+
+   let table_e = document.createElement('table');
+	let thead_e = document.createElement('thead');
+	let tbody_e = document.createElement('tbody');
+
+	table_e.appendChild(thead_e);
+	table_e.appendChild(tbody_e);
+
+   document.getElementById("modal_exrate").appendChild(table_e);
+   console.log(table_e);
+
+
+   let row_1 = document.createElement('tr');
+   let heading_1 = document.createElement('td');
+   heading_1.innerHTML = exrate+" ETH = 1 MMT";
+ 
+
+   row_1.appendChild(heading_1);
+
+   thead_e.appendChild(row_1);
+
+   
+   let table_2 = document.createElement('table');
+	let thead_2 = document.createElement('thead');
+	let tbody_2 = document.createElement('tbody');
+
+   table_2.appendChild(thead_2);
+	table_2.appendChild(tbody_2);
+   table_2.style.textAlign = "center";
+
+   document.getElementById("modal_ETHtoMMT").appendChild(table_2);
+
+   let row_3 = document.createElement('tr');
+   let row_3_data_1 = document.createElement('td');
+
+   row_3_data_1.innerHTML = '<input type="number" min="0" id="inputEtoM" onkeyup="printExchange(0)" placeholder="ETH" style="text-align:right" value=0>';
+   row_3_data_1.width = 30;
+   row_3_data_1.height = 40;
+   let row_3_data_2 = document.createElement('td');
+   row_3_data_2.id = 'outputEtoM';
+   row_3_data_2.innerHTML = '0 MMT';
+
+
+   let row_3_data_3 = document.createElement('td');
+   row_3_data_3.innerHTML = '<button class="btn btn-primary" background="#f0c080" style="padding:10px;" onclick="ETHtoMMT()" ><span class="icon-arrow-right"></span></button>';
+
+   row_3.appendChild(row_3_data_1);
+   row_3.appendChild(row_3_data_3);
+   row_3.appendChild(row_3_data_2);
+
+   tbody_2.appendChild(row_3);
+
+   document.getElementById("ETHtoMMTheader").innerHTML = "ETH " +'<span class="icon-arrow-right"></span>'+ " MMT";
+
+
+   //document.getElementById("modal_MMTtoETH").innerHTML = "MMT -> ETH";
+
+
+   let table_3 = document.createElement('table');
+	let thead_3 = document.createElement('thead');
+	let tbody_3 = document.createElement('tbody');
+
+   table_3.appendChild(thead_3);
+	table_3.appendChild(tbody_3);
+   table_3.style.textAlign = "center";
+
+   document.getElementById("modal_MMTtoEth").appendChild(table_3);
+
+   let row_4 = document.createElement('tr');
+   let row_4_data_1 = document.createElement('td');
+
+   row_4_data_1.innerHTML = '<input type="number" min="0" id="inputMtoE" onkeyup="printExchange(1)" placeholder="MMT" style="text-align:right" value=0>';
+   row_4_data_1.width = 30;
+   row_4_data_1.height = 40;
+   let row_4_data_2 = document.createElement('td');
+   row_4_data_2.id = 'outputMtoE';
+   row_4_data_2.innerHTML = '0 ETH';
+
+   let row_4_data_3 = document.createElement('td');
+   row_4_data_3.innerHTML = '<button class="btn btn-primary" style="padding:10px;" onclick="MMTtoETH()" ><span class="icon-arrow-right"></span></button>';
+
+   row_4.appendChild(row_4_data_1);
+   row_4.appendChild(row_4_data_3);
+   row_4.appendChild(row_4_data_2);
+
+   tbody_3.appendChild(row_4);
+
+   document.getElementById("MMTtoETHheader").innerHTML = "MMT " +'<span class="icon-arrow-right"></span>'+ " ETH";
+
+
+
+
+   modalE_flag = true;
+
+   return mwindowHeight*40;
+}
+
+   async function ETHtoMMT(){
+      try{
+         LoadingWithMask();
+        
+         var eth = document.getElementById("inputEtoM").value * (10**18);
+         console.log("ETH->MMT 환전시작 ", eth);
+         console.log("governance 잔고: ",await Item_sol.methods.balanceOf(governance,0).call())
+         await Item_sol.methods.ETHtoMMT(userAccount[0]).send({from: userAccount[0], value:eth});
+         var wei = await web3.eth.getBalance(userAccount[0]);
+         var balanceMMT = await Item_sol.methods.balanceOf(userAccount[0],0).call();
+         var balanceETH = Math.round((await web3.utils.fromWei(wei, "ether"))*1000)/1000;
+         alert("충전(ETH->MMT)이 완료되었습니다.");
+         document.getElementById("inputEtoM").value = 0;
+         document.getElementById("outputEtoM").innerHTML = "0 MMT";
+
+         document.getElementById("balanceOfMMT").innerHTML = balanceMMT;
+         document.getElementById("balanceOfETH").innerHTML = balanceETH;
+      }
+      catch(err){
+         if(err == "nan"){
+            alert("0에서 999까지만 입력 가능합니다.")
+         }
+         alert("환전에 실패했습니다.");
+         console.log(err);
+      }
+      finally{
+         closeLoadingWithMask();
+      }
+      
+
+   }
+
+   async function MMTtoETH(){
+      try{
+         LoadingWithMask();
+         var mmt = document.getElementById("inputMtoE").value;
+         console.log("MMT->ETH 환전시작 ", mmt);
+         await Item_sol.methods.MMTtoETH(mmt).send({from: userAccount[0]});
+         var wei = await web3.eth.getBalance(userAccount[0]);
+         var balanceMMT = await Item_sol.methods.balanceOf(userAccount[0],0).call();
+         var balanceETH = Math.round((await web3.utils.fromWei(wei, "ether"))*1000)/1000;
+         alert("출금(MMT -> ETH)이 완료되었습니다.");
+         document.getElementById("inputMtoE").value = 0;
+         document.getElementById("outputMtoE").innerHTML = "0 ETH";
+         document.getElementById("balanceOfMMT").innerHTML = balanceMMT;
+         document.getElementById("balanceOfETH").innerHTML = balanceETH;
+      }
+      catch(err){
+         console.log(err);
+      }
+      finally{
+         closeLoadingWithMask();
+      }
+      
+		console.log(userAccount[0]," 잔고: ",await Item_sol.methods.balanceOf(userAccount[0],0).call())
+
+   }
+   async function printExchange(flag){
+      var mmt;
+      var inputId;
+      var outputId;
+      
+      if(flag == 0){
+         inputId = "inputEtoM";
+         outputId = "outputEtoM";
+         
+         mmt = parseFloat(document.getElementById(inputId).value)/exrate;
+         document.getElementById(outputId).innerHTML = mmt + " MMT";
+      }
+      else{
+         inputId = "inputMtoE";
+         outputId = "outputMtoE";
+         mmt = parseFloat(document.getElementById(inputId).value)*exrate;
+         document.getElementById(outputId).innerHTML = mmt + " ETH";
+
+      }
+   }
+
+   async function check_manager(){
+		var userAccount = await web3.eth.getAccounts(); 
+		console.log(userAccount);
+
+		console.log(userAccount[0]);
+		let check_manager = await Item_sol.methods.getIsManager(userAccount[0]).call();
+
+		if(check_manager==false){
+			alert("접근 권한이 없습니다.");
+		}
+		else{
+			location.href="./manage_delivery.html";
+		}
+	}
+
+
+
+   
+    </script>
+
+   
+
+  </body>
+  </html>

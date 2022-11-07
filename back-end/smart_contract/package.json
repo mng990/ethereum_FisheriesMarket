@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.7.3",
+    "@truffle/hdwallet-provider": "^2.0.15",
+    "buffer": "^6.0.3",
+    "ipfs": "^0.64.2",
+    "truffle-plugin-verify": "^0.5.28"
+  }
+}

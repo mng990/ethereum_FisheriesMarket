@@ -1,0 +1,438 @@
+<!-- /*
+* Template Name: Property
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Untree.co">
+	<link rel="shortcut icon" href="../favicon.png">
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+	<meta name="description" content="" />
+	<meta name="keywords" content="bootstrap, bootstrap5" />
+	
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+	<link rel="stylesheet" href="../fonts/icomoon/style.css">
+	<link rel="stylesheet" href="../fonts/flaticon/font/flaticon.css">
+
+	<link rel="stylesheet" href="../css/tiny-slider.css">
+	<link rel="stylesheet" href="../css/aos.css">
+	<link rel="stylesheet" href="../css/style.css">
+
+	<title>수산물 경매 NFT</title>
+</head>
+<body>
+
+	<div class="site-mobile-menu site-navbar-target">
+		<div class="site-mobile-menu-header">
+			<div class="site-mobile-menu-close">
+				<span class="icofont-close js-menu-toggle"></span>
+			</div>
+		</div>
+		<div class="site-mobile-menu-body"></div>
+	</div>
+
+	<nav class="site-nav">
+		<div class="container">
+			<div class="menu-bg-wrap">
+				<div class="site-navigation">
+					<a href="../index.html" class="logo m-0 float-start">수산물 경매 NFT</a>
+
+					<ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">
+						<li><a href="../index.html">홈</a></li>
+						<li class="has-children active">
+							<a href="properties.html">경매 물품</a>
+						</li>
+						<li><a href="my_page.html">My Page</a></li>
+						<!-- <li><a href="services.html">Services</a></li>
+						<li><a href="about.html">About</a></li>
+						<li><a href="contact.html">Contact Us</a></li> -->
+					</ul>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="hero page-inner overlay" style="background-image: url('../images/ocean_wave.jpg');">
+
+		<div class="container">
+			<div class="row justify-content-center align-items-center">
+				<div class="col-lg-9 text-center mt-5">
+					<h1 class="heading" data-aos="fade-up">입찰에 참여하세요.</h1>
+
+					<!-- <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="200">
+						<ol class="breadcrumb text-center justify-content-center">
+							<li class="breadcrumb-item "><a href="index.html">Home</a></li>
+							<li class="breadcrumb-item "><a href="properties.html">Properties</a></li>
+							<li class="breadcrumb-item active text-white-50" aria-current="page">5232 California AVE. 21BC</li>
+						</ol>
+					</nav> -->
+
+
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+
+	<div class="section">
+		<div class="container">
+			<div class="row justify-content-between">
+				<div class="col-lg-5">
+
+					<div class="img-property-slide-wrap">
+						<div id="imgP" class="img-property-slide">
+							<!-- <div id = "img01" class = "img-fluid"></div>
+							<div id = "img02" class = "img-fluid"></div>
+							<div id = "img03" class = "img-fluid"></div>
+							<div id = "img04" class = "img-fluid"></div>
+							<div id = "img05" class = "img-fluid"></div> -->
+						</div>
+					</div>
+
+
+				</div>
+				<div class="col-lg-6">
+					<div id = "item_info">
+						<!--해당 물품에 대한 정보 여기 넣기-->
+					</div>
+					<div class="d-block agent-box p-5">
+						<div class="text">
+							<h3 id = "balanceOfUser" class="mb-0"> </h3>
+							<h3 id = "bid_start_price" class="mb-0"> </h3>
+							<h3 id = "StartTime" class="mb-0"></h3>							
+							<h3 id = "Deadline" class="mb-0"></h3>	
+							<form action="#" name = "bidform" style="margin-top: 20px;">
+		
+							<div class="row">
+									<div class="col-6 mb-3">  
+										<input type="text" id="price"name="txt1" class="form-control" placeholder="입찰가격">
+									</div>
+									<div class="col-6 mb-3">
+										<input type="text" id="shippingTo" name="txt2" class="form-control" placeholder="배송지 ( 배송받고자 하는 주소)">
+									</div>
+									
+									<div class="col-12 mb-3">
+										<input type="button" id='bid_btn' value="입찰 참여" class="btn btn-primary" onclick="bid_start()">
+									</div>
+
+									<div id="btn"></div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr>
+
+     <!-- Preloader -->
+     <div id="overlayer"></div>
+     <div class="loader">
+         <div class="spinner-border" role="status">
+             <span class="visually-hidden">Loading...</span>
+         </div>
+     </div>
+
+
+	 <div id="data" class="section pt-0" style="margin-top: 100px;">
+		
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/ipfs@0.64.2/dist/index.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
+	 <script src="../js/index.js"></script>
+	 <script src="../js/metadata.js"></script>
+
+	 <script src="../Auction_abi.js"></script>
+	 <script src="../Item_abi.js"></script>
+	<script src="../Supply_abi.js"></script>
+
+  
+     <script>
+		var ipfs;
+        var item;
+		var itemId;
+		var auctionId;
+		var auction = new Object();
+		var price;
+		var userAccount;
+
+     window.addEventListener("load", async function() {
+		
+		ipfs = await Ipfs.create();
+		//경매목록에서 넘겨받은 id 저장
+		var imgArr = new Array();
+        var query = document.location.search;
+        var param = new URLSearchParams(query);
+		var imgHtml = '';
+		var cnt = 1;
+		 auctionId = param.get('auction_id'); //auction_id
+
+		 console.log("옥션 id ",auctionId);
+
+		 try{
+			LoadingWithMask()
+			userAccount = await web3.eth.getAccounts();
+			document.getElementById("balanceOfUser").innerHTML = "현재 잔고: "+await Item_sol.methods.balanceOf(userAccount[0],0).call()+"MMT";
+			if(await Item_sol.methods.isApprovedForAll(userAccount[0], governance).call()==false) location.href="../index.html";
+			auction = await readMetadata(auctionId, dirAuc, ipfs);
+			item = await readMetadata(auction.itemId, dir, ipfs);
+			price = await Auction_sol.methods.getCurrentBid(auctionId).call();
+			console.log("현재 잔고: ", await Item_sol.methods.balanceOf(userAccount[0], 0).call());
+
+		}catch(err){
+			console.log('옥션 로드 실패',err);
+			alert("경매를 가져오지 못했습니다.");
+			return
+		}finally{
+			closeLoadingWithMask()
+		}
+		
+         
+
+
+		 //console.log(img_item.length)
+
+		//  for(const imgCID of img_item){
+		// 	var imgId = "img0" + cnt.toString();
+		// 	//console.log(imgId);
+		// 	var imgN = document.getElementById(imgId);
+		// 	imgHtml = '<img src="https://ipfs.io/ipfs/'+ imgCID +'" alt="Image"/>';
+		// 	//console.log(imgHtml)
+		// 	imgN.innerHTML += imgHtml;
+		// 	cnt++;
+		//  }
+		
+
+		var startStamp = auction.startTime * 1000;
+		var deadStamp = auction.blockDeadLine * 1000;
+		var now = new Date();
+		var start = new Date(startStamp);
+		var dead = new Date(deadStamp);
+
+		if(now < start || now > dead){
+			document.getElementById('StartTime').style.color = "red";
+			document.getElementById('Deadline').style.color = "red";
+		}
+
+		document.getElementById('StartTime').innerHTML = "시작시간: ";
+		document.getElementById('Deadline').innerHTML = "마감시간: ";
+
+		document.getElementById('StartTime').innerHTML += start.getFullYear()+
+				"년 "+(start.getMonth()+1)+
+				"월 "+start.getDate()+
+				"일 "+start.getHours()+
+				"시 "+start.getMinutes()+
+				"분 "+start.getSeconds()+"초";
+
+		document.getElementById('Deadline').innerHTML += dead.getFullYear()+
+				"년 "+(dead.getMonth()+1)+
+				"월 "+dead.getDate()+
+				"일 "+dead.getHours()+
+				"시 "+dead.getMinutes()+
+				"분 "+dead.getSeconds()+"초";
+		
+		var imgP = document.getElementById('imgP');
+		imgP.innerHTML += '<img src="https://ipfs.io/ipfs/'+ item.image +'" alt="Image" style = "width: 400px; height:auto;"/>';
+
+
+
+		
+
+		 const info = document.getElementById("item_info");
+		 info.innerHTML = 
+		 		'<h2 class="heading text-primary">' + item.name + '</h2>' + 
+				'<p class="meta"> 원산지 : ' + item.origin + '</p>' +
+				'<p class="text-black-50">' + '무게 : '+ item.weight + ' 개수 : ' + auction.stock +'</p>';
+		
+		if(price == 0) price = auction.startPrice;
+		document.getElementById("bid_start_price").innerHTML = "입찰 가격: "+ (price + ' MMT');
+
+		if(auction.seller==userAccount[0]){
+			document.getElementById("price").display = "none";
+			document.getElementById("shippingTo").display = "none";
+
+			console.log("owner")
+			document.getElementById('bid_btn').style.display = 'none';
+			document.getElementById('btn').innerHTML+=
+						'<td><button class="btn btn-primary" onclick="finish(ipfs)" >경매끝내기</button></td>';
+		}
+		//  //옥션인덱스(id)로 아이템정보 가져오기 
+		//  var userAccount = await web3.eth.getAccounts();
+        //  var all = await Auction_sol.methods.getAuctionById(id).call();
+        //  alert(id);
+		//  var data=''
+		//  for(var i=0; i<3; i++)
+		//  	data = data + ' '+ all[i]
+        //  document.getElementById('data').innerHTML = data;
+        //  console.log(all);
+		
+
+     })
+
+
+	 function LoadingWithMask() {
+            var maskHeight = $(document).height();
+            var maskWidth = window.document.body.clientWidth;
+            //화면에 출력할 마스크를 설정해줍니다.   
+            var mask = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0; align-items:center; display: flex; justify-content:center;'>";
+          
+            mask += "<img src='../images/Spinner.gif' style=' position:relative; display: block;  margin: 0px auto;'/></div>";
+           
+            $('body')
+                .append(mask)
+ 
+            $('#mask').css({'width' : maskWidth, 'height': maskHeight, 'opacity' : '0.3'});
+            //마스크 표시    
+            $('#mask').show();
+          
+           }
+           
+        function closeLoadingWithMask(){
+            $('#mask').hide();
+            $('#mask').remove(); 
+        }
+
+
+
+	 async function bid_start(){
+		 console.log("입찰 참여함");
+		var timestamp = new Date().getTime()/1000;
+		if (timestamp < auction.startTime){
+			alert("경매가 시작 전엔 입찰이 불가능합니다.");
+			event.preventDefault();
+			return;
+		} 
+		if (timestamp > auction.blockDeadLine){
+			alert("경매가 마감되어 입찰이 불가능합니다.");
+			event.preventDefault();
+			return;
+		}
+		if (bidform.txt1.value == "") {
+			bidform.txt1.focus();
+			alert("입찰 하고자 하는 가격을 입력하세요. ");
+			event.preventDefault();
+			return;
+		}
+		if ( bidform.txt2.value == "") {
+			alert("배송지를 입력하세요.");
+			bidform.txt2.focus();
+			event.preventDefault();
+			return;
+		}
+		//입찰가격은 입찰 초기 가격보다 높아야함.
+		if(parseInt(bidform.txt1.value) < price){
+			bidform.txt1.focus();
+			alert("입찰 가격보다 낮습니다.");
+			event.preventDefault();
+			return;
+		}
+
+		//입찰 시작 sm호출
+		var userAccount = await web3.eth.getAccounts();
+		var bidVal = parseInt(bidform.txt1.value);
+		auction.shippingTo = bidform.txt2.value;
+		console.log(auction);
+		try{
+			LoadingWithMask()
+			await Auction_sol.methods.bidOnAuction(parseInt(auction.auctionId), bidVal, auction.startPrice, auction.startTime, auction.blockDeadLine, auction.shippingTo).send({from:userAccount[0]});
+			//var a = await Auction_sol.methods.bidOnAuction(parseInt(auctionId),bidform.txt2.value).send({from:userAccount[0]});
+			console.log('경매 참여');
+			var priceUpdate = await Auction_sol.methods.getWinningPrice(auction.auctionId).call();
+			document.getElementById("balanceOfu=User").innerHTML = "현재 잔고: "+ await Item_sol.methods.balanceOf(userAccount[0],0).call()+"MMT";
+
+			document.getElementById("bid_start_price").innerHTML = "입찰 가격: "+ (priceUpdate + ' MMT');
+			alert('입찰에 참여하셨습니다. ');
+S
+		}catch(err){
+			console.log('경매 참여 실패',err);
+			alert("입찰에 실패했습니다.");
+			return
+		}finally{
+			closeLoadingWithMask()
+		}
+		
+		
+
+
+	 }
+
+	 async function finish(ipfs){
+		event.preventDefault();
+		var userAccount = await web3.eth.getAccounts();
+		try{
+			LoadingWithMask();
+			var bidderInfo = new Object();
+			var prevAuction = new Object();
+			var newAuction = new Object();
+			prevAuction = await readMetadata(auctionId, dirAuc, ipfs);
+			alert('경매를 종료합니다.');
+			var bidCnt= await Auction_sol.methods.getBidsCount(auctionId).call();
+			console.log("prevAuction ", prevAuction);
+			console.log("bidCnt ",bidCnt);
+
+			if(bidCnt == 0){
+				var cancel = await Auction_sol.methods.cancelAuction(prevAuction.auctionId, prevAuction.itemId, prevAuction.seller, prevAuction.stock).send({from:userAccount[0]});
+				console.log("경매 취소", cancel);
+				console.log("balance ",await Auction_sol.methods.balanceOf(governance,prevAuction.auctionId).call());
+			}
+
+			else{
+				bidderInfo = await Auction_sol.methods.getBidderInfo(auctionId).call();
+				//alert('낙찰자 정보를 메타데이터에 기록합니다.');
+				console.log(bidderInfo);
+				var newMetadata = await buildNewAuctionData(prevAuction, bidderInfo);
+				console.log("newAuction: ",newAuction);
+ 
+				await writeAuctionData(prevAuction.auctionId,newMetadata, ipfs, true);
+				var dirCID = await ipfs.files.stat(dirAuc);
+				dirCID = dirCID.cid.toString();
+
+				console.log(await Auction_sol.methods.getMapOfUser(prevAuction.itemId).call());
+
+				var a = await Auction_sol.methods.finalizeAuction(prevAuction.auctionId, prevAuction.itemId, prevAuction.seller, prevAuction.stock, prevAuction.blockDeadLine, dirCID).send({from:userAccount[0]});
+				
+
+				console.log("경매 끝",a);
+			}
+
+			alert("경매가 종료되었습니다.");
+			location.href = "./my_page.html";
+		}catch(err){
+			console.log(err);
+			return
+		}finally{
+			closeLoadingWithMask()
+		}
+		
+		
+		
+	 }
+     </script>
+     <script src="../js/bootstrap.bundle.min.js"></script>
+     <script src="../js/tiny-slider.js"></script>
+     <script src="../js/aos.js"></script>
+     <script src="../js/navbar.js"></script>
+     <script src="../js/counter.js"></script>
+     <script src="../js/custom.js"></script>
+ 
+   </body>
+ 
+ 
+ 
+ 
+   </html>
+ 

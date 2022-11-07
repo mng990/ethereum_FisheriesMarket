@@ -1,0 +1,491 @@
+<!-- /*
+* Template Name: Property
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Untree.co">
+	<link rel="shortcut icon" href="../favicon.png">
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+	<meta name="description" content="" />
+	<meta name="keywords" content="bootstrap, bootstrap5" />
+	
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+	<link rel="stylesheet" href="../fonts/icomoon/style.css">
+	<link rel="stylesheet" href="../fonts/flaticon/font/flaticon.css">
+
+	<link rel="stylesheet" href="../css/tiny-slider.css">
+	<link rel="stylesheet" href="../css/aos.css">
+	<link rel="stylesheet" href="../css/style.css">
+
+	<title>수산물 경매 NFT</title>
+</head>
+<style>
+   
+    .file-list {
+        height: 200px;
+        overflow: auto;
+        border: 1px solid #989898;
+        padding: 10px;
+        border-radius: 0.25rem;
+        color: #212529;
+    }
+    .file-list .filebox p {
+        font-size: 14px;
+        margin-top: 10px;
+        display: inline-block;
+    }
+    .file-list .filebox .delete i{
+        color: #ff5353;
+        margin-left: 5px;
+    }
+</style>
+<body>
+
+	<div class="site-mobile-menu site-navbar-target">
+		<div class="site-mobile-menu-header">
+			<div class="site-mobile-menu-close">
+				<span class="icofont-close js-menu-toggle"></span>
+			</div>
+		</div>
+		<div class="site-mobile-menu-body"></div>
+	</div>
+
+	<nav class="site-nav">
+		<div class="container">
+			<div class="menu-bg-wrap">
+				<div class="site-navigation">
+					<a href="../index.html" class="logo m-0 float-start">수산물 경매 NFT</a>
+
+					<ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">
+						<li><a href="../index.html">홈</a></li>
+						<li class="has-children">
+							<a href="properties.html">경매 물품</a>
+						</li>
+                        <li><a href="my_page.html">My Page</a></li>
+						<!-- <li><a href="services.html">Services</a></li>
+						<li><a href="about.html">About</a></li>
+						<li class="active"><a href="contact.html">Contact Us</a></li> -->
+					</ul>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="hero page-inner overlay" style="background-image: url('../images/hero_bg_1.jpg');">
+
+		<div class="container">
+			<div class="row justify-content-center align-items-center">
+				<div class="col-lg-9 text-center mt-5">
+					<h1 class="heading" data-aos="fade-up">경매 물품을 등록하세요.</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 mb-5 mb-lg-0 justify-content-center" data-aos="fade-up" data-aos-delay="100">
+				</div> 
+				<div class="" data-aos="fade-up" data-aos-delay="200">
+					<form action="#" name = "myform">
+						<div class="row">
+							<div class="col-4 mb-3">  <!--수정_0725_류지환-->
+								<input type="text" name="txt1" class="form-control" placeholder="생선 품명 (ex. 고등어, 갈치 등등 .. )">
+							</div>
+							<div class="col-4 mb-3">
+								<input type="text" name="txt2" class="form-control" placeholder="무게(kg)">
+							</div>
+                            <div class="col-4 mb-3">
+								<input type="text" name="txt3" class="form-control" placeholder="개수">
+							</div>
+
+                            <div class="col-4 mb-3">
+								<input type="text" name="txt4" class="form-control" placeholder="원산지">
+							</div>
+							
+
+							<div class="col-12 mb-3">
+                                <form method="POST" onsubmit="return false;" enctype="multipart/form-data">
+                                    <input type="file" name="txt7" onchange="addFile(this);" multiple />
+                                    <div class="file-list"></div>
+                                </form>
+							</div>
+							<div class="col-12">
+								<input type="button" value="등록하기" class="btn btn-primary" onclick="check_item_register()"> 
+                                <!-- check_item_register -->
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div> <!-- /.untree_co-section -->
+
+	<div class="site-footer">
+		<div class="container">
+
+			<div class="row">
+			</div> 
+				<div class="col-12 text-center">
+            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by 우유와고기조</a> 
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div> 
+
+    <!-- Preloader -->
+    <div id="overlayer"></div>
+    <div class="loader">
+    	<div class="spinner-border" role="status">
+    		<span class="visually-hidden">Loading...</span>
+    	</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.8.0/dist/esm/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.1/lib/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ipfs@0.64.2/dist/index.min.js"></script>
+   
+    <script src="../Auction_abi.js"></script>
+    <script src="../Item_abi.js"></script>
+	<script src="../Supply_abi.js"></script>
+  
+
+    <script src="../js/index.js"></script>
+    <script src="../js/metadata.js"></script>
+    
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/tiny-slider.js"></script>
+    <script src="../js/aos.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/counter.js"></script>
+    <script src="../js/custom.js"></script>
+    <script >
+        
+        var fileNo = 0;
+        var filesArr = new Array();
+
+
+        async function check_manager(){
+			var userAccount = await web3.eth.getAccounts(); 
+			console.log(userAccount);
+
+            console.log(userAccount[0]);
+			let check_manager = await Item_sol.methods.getIsManager(userAccount[0]).call();
+
+			if(check_manager==false){
+				alert("접근 권한이 없습니다.");
+			}
+			else{
+				location.href="./manage_delivery.html";
+			}
+		}
+        
+        function LoadingWithMask() {
+            var maskHeight = $(document).height();
+            var maskWidth = window.document.body.clientWidth;
+            //화면에 출력할 마스크를 설정해줍니다.   
+            var mask = "<div id='mask' style='position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0; align-items:center; display: flex; justify-content:center;'>";
+          
+            mask += "<img src='../images/Spinner.gif' style=' position:relative; display: block;  margin: 0px auto;'/></div>";
+           
+            $('body')
+                .append(mask)
+ 
+            $('#mask').css({'width' : maskWidth, 'height': maskHeight, 'opacity' : '0.3'});
+            //마스크 표시    
+            $('#mask').show();
+          
+           }
+           
+        function closeLoadingWithMask(){
+            $('#mask').hide();
+            $('#mask').remove(); 
+        }
+              
+        async function check_user(){
+            var userAccount = await web3.eth.getAccounts();
+
+            if(await Item_sol.methods.isApprovedForAll(userAccount[0], governance).call() == false){
+               location.href = "../index.html";
+            }
+        }
+            
+
+        /* 첨부파일 추가 */
+        async function addFile(obj){
+           
+            var maxFileCnt = 1;   // 첨부파일 최대 개수
+            var attFileCnt = document.querySelectorAll('.filebox').length;    // 기존 추가된 첨부파일 개수
+            var remainFileCnt = maxFileCnt - attFileCnt;    // 추가로 첨부가능한 개수
+            var curFileCnt = obj.files.length;  // 현재 선택된 첨부파일 개수       
+
+            // 첨부파일 개수 확인
+            if (curFileCnt > remainFileCnt) {
+                alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
+            } else {
+                
+                for await (const file of obj.files) {
+                    // 첨부파일 검증
+                    if (validation(file)) {
+                        // 파일 배열에 담기
+
+                        filesArr.push(file);
+                        //var cid = getCIDFromFile(results);
+
+                    
+                        // 목록 추가
+                        let htmlData = '';
+                        htmlData += '<div id="file' + fileNo + '" class="filebox">';
+                        htmlData += '   <p class="name">' + file.name + '</p>';
+                        htmlData += '   <a class="delete" onclick="deleteFile(' + fileNo + ');"><i class="far fa-minus-square"></i></a>';
+                        htmlData += '</div>';
+                        console.log("???");
+                        document.getElementsByClassName('file-list')[0].innerHTML += htmlData
+                        //$('.file-list').append(htmlData);
+                        fileNo++;
+                    } else {
+                        continue;
+                    }
+                }
+            }
+            // 초기화
+            document.querySelector("input[type=file]").value = "";
+        }
+
+        /* 첨부파일 검증 */
+        function validation(obj){
+            const fileTypes = ['application/pdf', 'image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif', 'application/haansofthwp', 'application/x-hwp'];
+            if (obj.name.length > 100) {
+                alert("파일명이 100자 이상인 파일은 제외되었습니다.");
+                return false;
+            } else if (obj.size > (100 * 1024 * 1024)) {
+                alert("최대 파일 용량인 100MB를 초과한 파일은 제외되었습니다.");
+                return false;
+            } else if (obj.name.lastIndexOf('.') == -1) {
+                alert("확장자가 없는 파일은 제외되었습니다.");
+                return false;
+            } else if (!fileTypes.includes(obj.type)) {
+                alert("첨부가 불가능한 파일은 제외되었습니다.");
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        
+
+        /* 첨부파일 삭제 */
+        function deleteFile(num) {
+            document.querySelector("#file" + num).remove();
+            filesArr[num].is_delete = true;
+        }
+
+        // /* 폼 전송 */
+        // function submitForm() {
+        //     // 폼데이터 담기
+        //     var form = document.querySelector("form");
+        //     var formData = new FormData(form);
+        //     for (var i = 0; i < filesArr.length; i++) {
+        //         // 삭제되지 않은 파일만 폼데이터에 담기
+        //         if (!filesArr[i].is_delete) {
+        //             formData.append("attach_file", filesArr[i]);
+        //         }
+        //     }
+
+        //     $.ajax({
+        //         method: 'POST',
+        //         url: '/register',
+        //         dataType: 'json',
+        //         data: formData,
+        //         async: true,
+        //         timeout: 30000,
+        //         cache: false,
+        //         headers: {'cache-control': 'no-cache', 'pragma': 'no-cache'},
+        //         success: function () {
+        //             alert("파일업로드 성공");
+        //         },
+        //         error: function (xhr, desc, err) {
+        //             alert('에러가 발생 하였습니다.');
+        //             return;
+        //         }
+        //     })
+        //
+
+        async function sm_register_item(){
+
+            const ipfs = await Ipfs.create();
+
+
+
+            console.log(Auction_sol);
+            var fish = String(myform.txt1.value);
+            var kg = parseInt(myform.txt2.value);
+            var count= parseInt(myform.txt3.value);
+            var from= String(myform.txt4.value);
+            var CIDArr = new Array();
+
+            var metadata = new String("");
+
+            
+           
+            // 상품등록 성공
+            //경매 물품에 상품 추가하기
+            //블록체인에 상품 등록하기z
+            var userAccount = await web3.eth.getAccounts();
+            console.log(userAccount[0]);  
+            
+            //console.log("환전시작");
+
+           // let pot = await sol.methods.getBidsCount(2).call();
+            //console.log(pot)
+
+            //awit 안쓰면 Promise{pending} 떠서 꼭 써주기
+            // //경매 등록
+
+            
+            //수정_0725_류지환
+            
+            try {
+                LoadingWithMask();
+                console.log(userAccount[0]);
+                if(await Item_sol.methods.isApprovedForAll(userAccount[0], governance).call() == false){
+					location.href = "../index.html";
+            	}
+
+                alert('상품을 등록합니다.');
+
+                
+            
+                for await (var file of filesArr){
+                    var results = await ipfs.add(file);
+                            
+                    console.log(results.path);
+                    CIDArr.push(results.path);
+                }
+
+               //await initDir(CIDArr, ipfs);throw err;
+
+                //var dirCID = await buildGoldData(ipfs, CIDArr);
+
+
+         
+                let itemId = await Item_sol.methods.getItemId().call();
+
+                //await ipfs.files.mkdir(dir);
+
+                console.log(itemId, fish, kg, count, from);
+
+                metadata = await buildItemData(itemId, fish, kg, count, from, CIDArr);
+
+                console.log(metadata);
+
+                var buf = new TextEncoder().encode(metadata);
+
+                var pathIdx = itemId.toString(16);
+                pathIdx = pathIdx.padStart(64,'0');
+
+                //console.log(metadata);
+                
+                //var ls = await ipfs.files.ls(dir);
+
+                //await ipfs.files.rm(dir+'/' + pathIdx+ '.json');
+
+                //await ipfs.files.rm(dir+'/' + pathIdx+ '.json');
+
+                await ipfs.files.write(dir+'/' + pathIdx+ '.json', buf, { create: true });
+
+
+                //var jsonData = readMetadata(itemId, dir, ipfs);
+
+                var dirCID = await ipfs.files.stat(root);
+                dirCID = dirCID.cid.toString();
+                console.log(dirCID);
+
+
+                let create_item = await Item_sol.methods.createItem(count, dirCID).send({from:userAccount[0]});
+
+                alert('성공적으로 등록되었습니다.');
+
+            }catch(err){
+                console.log(err)
+                alert("아이템 등록에 실패했습니다.");
+                return
+            } finally{
+                closeLoadingWithMask()
+            }
+            
+           
+           
+            
+            
+            // var item = new Array();
+            // for(var i =0; i<item_id.length; i++){
+            //     item[i] = await Item_sol.methods.viewItemById(item_id[i]).call();
+                
+            // }
+            // console.log(item);
+
+            //경매 등록된 아이디
+            //let bid =  await sol.methods.getAuctionsOf(userAccount[0]).call();
+
+            //1번 아이디 경매 정보
+            //let data = await sol.methods.getAuctionById(1).call();
+
+            //console.log(auction)
+            //console.log(data[1])
+            //console.log(data)
+            //console.log("아이디",bid)
+            
+        }
+
+        async function check_item_register(){
+            if ( myform.txt1.value == "") {
+                myform.txt1.focus();
+			    alert("등록하실 어류의 종류를 입력해주세요 .");
+                event.preventDefault();
+                return;
+		    }
+            if ( myform.txt2.value == "") {
+			    alert("등록하실 어류의 kg 수를 입력해주세요 .");
+			    myform.txt2.focus();
+                event.preventDefault();
+                return;
+		    }
+            if ( myform.txt3.value == "") {
+			    alert("등록하실 어류의 개수를 입력해주세요 .");
+			    myform.txt3.focus();
+                event.preventDefault();
+                return;
+		    }
+            if ( myform.txt4.value == "") {
+			    alert("원산지를 입력해주세요 .");
+			    myform.txt4.focus();
+                event.preventDefault();
+                return;
+		    }
+           
+           
+            // 상품등록 성공
+            //경매 물품에 상품 추가하기
+            //블록체인에 상품 등록하기
+            event.preventDefault();
+            sm_register_item();
+                
+        }
+    </script>
+  </body>
+  </html>
